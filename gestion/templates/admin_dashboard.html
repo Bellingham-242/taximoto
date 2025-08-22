@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+
+{% block page_title %}Dashboard Administrateur{% endblock %}
+
+{% block content %}
+<style>
+/* Arrière-plan avec image + luminosité réduite */
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        min-height: 50vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* centre verticalement */
+        align-items: center;     /* centre horizontalement */
+        position: relative;
+        padding: 1rem;
+        background-position: center top;
+        background:rgb(228, 227, 227) center center/cover;
+    }
+
+    body::before {
+        content: "";
+        position: absolute; /* fixe mais prend toute la zone body */
+        top: 0; left: 0; right: 0; bottom: 0;
+        filter: brightness(0.1);
+        z-index: -1;
+    }
+
+    .dashboard-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 1200px;
+        padding: 1rem;
+        overflow: auto; /* permet au contenu de s’adapter si tableau large */
+    }
+
+/* Boutons centraux */
+.central-btns a {
+    text-decoration: none;
+    padding: 0.5rem 1.5rem;
+    font-weight: 700;
+    border-radius: 50px;
+    background: linear-gradient(135deg,#0d6efd,#3390ff);
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.central-btns a:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(13,110,253,0.4);
+}
+
+/* Tableau stylé */
+.table-container {
+    overflow-x: auto;
+    width: 100%;
+    max-width: 1100px;
+    margin-top: 1.5rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    background: rgba(255,255,255,0.95); /* fond semi-transparent */
+}
+
+thead {
+    background: #0d6efd;
+    color: white;
+    font-weight: 600;
+}
+
+tbody tr {
+    background: transparent;
+}
+tbody tr:hover {
+    background: rgba(13,110,253,0.05);
+    transition: background 0.3s;
+}
+
+td, th {
+    padding: 0.8rem 1rem;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Colonne Actions */
+td[data-label="Actions"] a {
+    display: block;
+    font-size: 0.85rem;
+    padding: 0.35rem 0.7rem;
+    border-radius: 20px;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    color: white !important;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+}
+td[data-label="Actions"] a:nth-child(1),
+td[data-label="Actions"] a:nth-child(2) { background-color: #8d969e; }
+td[data-label="Actions"] a:nth-child(3),
+td[data-label="Actions"] a:nth-child(4),
+td[data-label="Actions"] a:nth-child(5) { background-color: #0d6efd; }
+
+td[data-label="Actions"] a:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 8px rgba(0,0,0,0.2);
+}
+@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+td[data-label="Actions"] a:hover i { animation: pulse 0.5s infinite; }
+
+/* Texte si tableau vide */
+tbody tr td[colspan] {
+    color: #666;
+    font-style: italic;
+    padding: 1rem;
+}
+</style>
+
+<div class="dashboard-container">
+    {% if user.role == "admin" %}
+    <div class="central-btns" style="max-width: 600px; margin-bottom: 2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+    <a href="{% url 'attribuer_moto' %}"><i class="bi bi-bicycle"></i> Attribuer une moto</a>
+    <a href="{% url 'bilan_general' %}"><i class="bi bi-bar-chart-line"></i> Bilan Général</a>
+    <a href="{% url 'ajouter_moto' %}"><i class="bi bi-plus-circle"></i> Ajouter une moto</a>
+    <a href="{% url 'register' %}"><i class="bi bi-person-plus"></i> Créer un compte</a>
+   <a href="{% url 'ajouter_recette' %}"><i class="bi bi-cash-stack"></i> Saisir recettes du jour</a>
+   <a href="{% url 'liste_conducteurs' %}"><i class="bi bi-person-lines-fill"></i> Mes conducteurs</a>
+   <a href="{% url 'liste_questions' %}"><i class="bi bi-question-circle"></i> Questions en attente</a>
+</div>
+
+    {% endif %}
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Moto</th>
+                    <th>Conducteur</th>
+                    <th>Téléphone</th>
+                    <th>Adresse</th>
+                    <th>Recette du jour</th>
+                    <th>Dépenses du jour</th>
+                    {% if user.role == "admin" %}<th>Actions</th>{% endif %}
+                </tr>
+            </thead>
+            <tbody>
+            {% for item in conducteurs %}
+                <tr>
+                    <td data-label="Moto">{{ item.conducteur.moto|default:"Aucune" }}</td>
+                    <td data-label="Conducteur">{{ item.conducteur.user.get_full_name }}</td>
+                    <td data-label="Téléphone">{{ item.conducteur.telephone }}</td>
+                    <td data-label="Adresse">{{ item.conducteur.adresse }}</td>
+                    <td data-label="Recette du jour">{% if item.recette_du_jour %}{{ item.recette_du_jour.montant }} FCFA{% else %}-{% endif %}</td>
+                    <td data-label="Dépense du jour">{{ item.recette_du_jour.depense|default:"-" }} FCFA</td>
+                    {% if user.role == "admin" %}
+                    <td data-label="Actions">
+                        <a href="{% url 'ajouter_absence' item.conducteur.id %}">Absence</a>
+                        <a href="{% url 'conducteur_detail' item.conducteur.id %}">Détails</a>
+                        {% if item.recette_du_jour %}
+                            <a href="{% url 'modifier_recette' item.recette_du_jour.id %}">Recette</a>
+                        {% endif %}
+                        <a href="{% url 'modifier_conducteur' item.conducteur.id %}">Conducteur</a>
+                    </td>
+                    {% endif %}
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="7">Aucun conducteur trouvé.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

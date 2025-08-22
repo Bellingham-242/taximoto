@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+.table-container {
+    overflow-x: auto;
+    width: 100%;
+    max-width: 1200px;
+    margin: 2rem auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    background: rgba(255,255,255,0.95);
+}
+
+thead {
+    background: #0d6efd;
+    color: white;
+    font-weight: 600;
+}
+
+td, th {
+    padding: 0.8rem 1rem;
+    text-align: center;
+    vertical-align: middle;
+}
+
+td[data-label="Actions"] a {
+    display: inline-block;
+    padding: 0.35rem 0.7rem;
+    border-radius: 20px;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    color: white !important;
+    background-color: #dc3545;
+    text-decoration: none;
+}
+
+td[data-label="Actions"] a:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 8px rgba(0,0,0,0.2);
+}
+</style>
+
+<div class="table-container">
+    <h2 style="text-align:center; margin-bottom: 1.5rem;">Liste des conducteurs</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Téléphone</th>
+                <th>Adresse</th>
+                <th>Moto</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for c in conducteurs %}
+            <tr>
+                <td data-label="Nom">{{ c.user.first_name }}</td>
+                <td data-label="Prénom">{{ c.user.last_name }}</td>
+                <td data-label="Téléphone">{{ c.telephone }}</td>
+                <td data-label="Adresse">{{ c.adresse }}</td>
+                <td data-label="Moto">{{ c.moto|default:"Aucune" }}</td>
+                <td data-label="Actions">
+                    <a href="{% url 'supprimer_conducteur' c.id %}" 
+                       onclick="return doubleConfirm(event, '{{ c.user.get_full_name }}');">
+                        Supprimer
+                    </a>
+                </td>
+            </tr>
+        {% empty %}
+            <tr><td colspan="6">Aucun conducteur trouvé.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+function doubleConfirm(event, nom) {
+    event.preventDefault();
+    if (confirm("Êtes-vous sûr de vouloir supprimer " + nom + " ?")) {
+        if (confirm("Cette action est définitive ! Confirmez encore la suppression.")) {
+            window.location.href = event.currentTarget.href;
+        }
+    }
+    return false;
+}
+</script>
+{% endblock %}

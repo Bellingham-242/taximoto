@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+
+{% block page_title %}Dashboard Conducteur{% endblock %}
+
+{% block content %}
+<style>
+body {
+    background:rgb(223, 223, 219) no-repeat center center/cover;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-bottom: 2rem;
+}
+
+/* Overlay sombre pour diminuer la luminosité */
+    .background::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(88, 85, 85, 0.5); /* tu changes l'opacité */
+      z-index: 1;
+    }
+
+/* Titres des sections */
+h4 {
+    color: #0d6efd;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+/* Bloc général pour Paiements / Absences / Recette */
+.card-block {
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card-block:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.card-block i {
+    font-size: 2rem;
+    color: #0d6efd;
+    min-width: 40px;
+    text-align: center;
+}
+
+/* Contenu à côté de l'icône */
+.card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+/* Formulaire recette avec champ et bouton dans le même bloc */
+.recette-form {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    max-width: 700px;
+    margin: 0 auto 1rem auto;
+}
+
+.recette-form .input-group-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 45px;
+    border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.recette-form input {
+    border-radius: 0;
+}
+
+.recette-form button {
+    border-radius: 12px;
+    padding: 0.5rem 1rem;
+    transition: all 0.2s;
+}
+
+.recette-form button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* Bloc désactivé pour recette déjà saisie */
+.disabled-block {
+    opacity: 0.95;
+    pointer-events: none;
+    position: relative;
+}
+
+.disabled-block .card-content span {
+    color: #000; /* texte noir */
+}
+
+/* Message sur le bloc */
+.disabled-block::after {
+    content: "Recette déjà enregistrée pour aujourd'hui";
+    position: absolute;
+    top: -1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.9rem;
+    color: #dc3545;
+    font-weight: 600;
+}
+
+/* Icône verte pour recette enregistrée */
+.card-block.recette-enreg i {
+    color: #198754; /* vert */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .recette-form {
+        flex-direction: column;
+    }
+    .recette-form button {
+        width: 100%;
+    }
+    .card-block {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+</style>
+
+<div class="container mt-4">
+
+    <!-- Recette du jour -->
+    <h4>Ma recette du jour</h4>
+    {% if recette_du_jour %}
+        <div class="card-block disabled-block recette-enreg">
+            <i class="bi bi-check-circle-fill"></i>
+            <div class="card-content">
+                <span><strong>Montant :</strong> {{ recette_du_jour.montant }} FCFA</span>
+                <span><strong>Dépense :</strong> {{ recette_du_jour.depense }} FCFA</span>
+            </div>
+        </div>
+    {% else %}
+        <form method="post" class="recette-form">
+            {% csrf_token %}
+            <div class="input-group flex-grow-1">
+                <span class="input-group-text bg-primary text-white">
+                    <i class="bi bi-currency-dollar"></i>
+                </span>
+                <input type="number" step="0.01" name="montant" placeholder="Montant" class="form-control" required>
+            </div>
+            <div class="input-group flex-grow-1">
+                <span class="input-group-text bg-warning text-white">
+                    <i class="bi bi-credit-card"></i>
+                </span>
+                <input type="number" step="0.01" name="depense" placeholder="Dépense" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-success">
+                <i class="bi bi-save me-1"></i> Enregistrer
+            </button>
+        </form>
+    {% endif %}
+
+    <!-- Paiements -->
+    <!-- <h4>Mes paiements</h4>
+    {% for p in paiements %}
+        <div class="card-block">
+            <i class="bi bi-cash-stack"></i>
+            <div class="card-content">
+                <span><strong>Date :</strong> {{ p.date_paiement }}</span>
+                <span><strong>Montant :</strong> {{ p.montant_paye }} FCFA</span>
+                <span><strong>Période :</strong> {{ p.periode_debut }} → {{ p.periode_fin }}</span>
+            </div>
+        </div>
+    {% empty %}
+        <div class="card-block text-muted">
+            Aucun paiement
+        </div>
+    {% endfor %} -->
+
+    <!-- Absences -->
+    <h4>Mes absences</h4>
+    {% for a in absences %}
+        <div class="card-block">
+            <i class="bi bi-calendar-x"></i>
+            <div class="card-content">
+                <span><strong>Date :</strong> {{ a.date|date:"d F Y" }}</span>
+                <span><strong>Raison :</strong> {{ a.raison|default:"-" }}</span>
+            </div>
+        </div>
+    {% empty %}
+        <div class="card-block text-muted">
+            Aucune absence
+        </div>
+    {% endfor %}
+
+</div>
+{% endblock %}

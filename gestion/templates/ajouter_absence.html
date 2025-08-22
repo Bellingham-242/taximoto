@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+/* Container centré et style général */
+.form-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #ffffff; /* blanc pur */
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+/* Titres */
+.form-container h3 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #0d6efd; /* bleu principal */
+}
+
+/* Inputs et textarea */
+.form-control {
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: 0.2s;
+}
+
+.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 5px rgba(13,110,253,0.3);
+}
+
+/* Boutons */
+.btn {
+    border-radius: 50px;
+    font-weight: 600;
+    padding: 0.5rem 1.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-warning {
+    background: linear-gradient(135deg,#0d6efd,#3390ff); /* bleu gradient */
+    border: none;
+    color: white;
+}
+
+.btn-warning:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(13,110,253,0.7);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg,#6c757d,#adb5bd); /* gris clair pour contraste */
+    border: none;
+    color: white;
+}
+
+.btn-secondary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(108,117,125,0.7);
+}
+
+/* Espacement des boutons */
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+</style>
+
+<div class="form-container">
+    <h3>Enregistrer une absence pour {{ conducteur.user.get_full_name }}</h3>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">Date d'absence</label>
+            <input type="date" name="date" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Raison (facultatif)</label>
+            <textarea name="raison" class="form-control"></textarea>
+        </div>
+        <div class="button-group">
+            <button class="btn btn-warning">Enregistrer</button>
+            <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary">Annuler</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

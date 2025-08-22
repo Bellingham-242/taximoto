@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+{% block page_title %}Gestion des motos{% endblock %}
+
+{% block content %}
+<style>
+.form-container {
+    max-width: 900px;
+    margin: 3rem auto;
+    padding: 2.5rem;
+    background: #f8f9fa;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Boutons principaux et action-btn */
+.action-btn, .action-btn a, button[type="submit"], .delete-btn {
+    text-decoration: none !important; /* supprime le soulignement */
+    display: flex !important;          /* assure un alignement flexible */
+    justify-content: center;           /* centre horizontalement le contenu */
+    align-items: center;               /* centre verticalement le contenu */
+    width: 100%;                       /* prend toute la largeur du td ou form */
+    gap: 0.4rem;                       /* espace entre icône et texte */
+    text-align: center;                /* texte centré */
+}
+
+/* Pour les liens <a> dans les boutons */
+.action-btn a {
+    color: #fff !important;            /* texte blanc */
+}
+
+/* Hover + transition */
+.action-btn:hover, button[type="submit"]:hover, .delete-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(13,110,253,0.4);
+}
+
+
+/* Titres */
+.form-container h2, .form-container h3 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #0d6efd;
+    font-weight: 700;
+}
+
+/* Inputs */
+input[type="text"], select {
+    width: 100%;
+    padding: 0.65rem 0.8rem;
+    margin-top: 0.3rem;
+    border: 1px solid #ced4da;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: 0.2s;
+}
+input[type="text"]:focus, select:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 8px rgba(13,110,253,0.3);
+    outline: none;
+}
+
+/* Boutons */
+button[type="submit"], .delete-btn, .action-btn {
+    margin-top: 1rem;
+    background: linear-gradient(135deg,#0d6efd,#5aa0ff);
+    color: #fff;
+    border: none;
+    padding: 0.65rem 1.2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+button[type="submit"]:hover, .delete-btn:hover, .action-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 18px rgba(13,110,253,0.35);
+    background: linear-gradient(135deg,#3390ff,#0d6efd);
+}
+button[disabled] {
+    background: #6c757d !important;
+    cursor: not-allowed;
+}
+
+/* Alert info */
+.alert-info {
+    background-color: #e6f0ff;
+    border: 1px solid #cce0ff;
+    color: #0d6efd;
+    font-weight: 500;
+    border-radius: 12px;
+    text-align: center;
+    padding: 1rem 1.2rem;
+    margin-bottom: 2rem;
+    font-size: 1.05rem;
+}
+
+/* Tableau stylé */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+    margin-top: 2rem;
+    background: #fff;
+}
+thead {
+    background: #0d6efd;
+    color: white;
+    font-weight: 600;
+}
+tbody tr:nth-child(even) { background: #e9f2ff; }
+tbody tr:nth-child(odd) { background: #ffffff; }
+tbody tr:hover { 
+    background: rgba(13,110,253,0.08); 
+    transition: background 0.3s; 
+}
+td, th { padding: 0.85rem 1rem; text-align: center; vertical-align: middle; }
+
+/* Select de statut */
+select {
+    cursor: pointer;
+    font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+    table, thead, tbody, th, td, tr { display: block; }
+    thead tr { display: none; }
+    tr { margin-bottom: 1rem; background: white; padding: 1rem; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+    td { position: relative; padding-left: 50%; text-align: right; border: none; }
+    td::before { position: absolute; top: 0.75rem; left: 1rem; width: 45%; font-weight: 600; color: #0d6efd; content: attr(data-label); text-align: left; font-size:0.95rem; }
+    .delete-btn, .action-btn { width: 100%; margin-top: 0.5rem; justify-content: center; }
+}
+</style>
+
+<div class="form-container">
+
+    <div class="alert alert-info">
+        <a href="{% url 'admin_dashboard' %}" style="text-decoration: none; color:#0d6efd;">← Retour au tableau de bord admin</a>
+    </div>
+
+    <h2>Ajouter une moto</h2>
+    <form method="POST" novalidate>
+        {% csrf_token %}
+        <label for="nom">Nom de la moto</label>
+        <input type="text" name="nom" id="nom" required placeholder="Ex: Bajaj Boxer">
+        <label for="matricule">Matricule</label>
+        <input type="text" name="matricule" id="matricule" required placeholder="Ex: CG-1234">
+        <button type="submit">Ajouter</button>
+    </form>
+
+    <table>
+        <tr>
+            <th><h2>Actions</h2></th>
+        </tr>
+        <tr>
+            <td style="width: 100%;"> 
+                <a class="action-btn" href="{% url 'ajouter_panne' %}" 
+                    {% if moto.statut != 'reparation' %}disabled{% endif %}>
+                    <i class="bi bi-tools"></i> Ajoutez des pannes 
+                </a>
+                <a class="action-btn" href="{% url 'liste_pannes' %}">
+                    <i class="bi bi-card-list"></i> Voir la liste des Pannes
+                </a>
+            </td>
+        </tr>
+    </table>
+
+    {% if motos %}
+        <h3>Liste des motos</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nom</th>
+                    <th>Matricule</th>
+                    <th>Statut</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for moto in motos %}
+                <tr>
+                    <td data-label="#"> {{ forloop.counter }} </td>
+                    <td data-label="Nom"> {{ moto.nom }} </td>
+                    <td data-label="Matricule"> {{ moto.matricule }} </td>
+                    <td data-label="Statut">
+                        <form method="POST" action="{% url 'modifier_statut_moto' moto.id %}">
+                            {% csrf_token %}
+                            <select name="statut" onchange="this.form.submit()">
+                                <option value="disponible" {% if moto.statut == "disponible" %}selected{% endif %}>Disponible</option>
+                                <option value="attribuee" {% if moto.statut == "attribuee" %}selected{% endif %}>Attribuée</option>
+                                <option value="reparation" {% if moto.statut == "reparation" %}selected{% endif %}>En réparation</option>
+                            </select>
+                        </form>
+                    </td>
+                    <td data-label="Action">
+                        <form action="{% url 'supprimer_moto' moto.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button class="delete-btn" onclick="return confirm('Supprimer cette moto ?');">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="text-center text-muted mt-4">Aucune moto enregistrée.</p>
+    {% endif %}
+
+</div>
+{% endblock %}

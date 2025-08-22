@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block page_title %}Bilan Général{% endblock %}
+
+{% block content %}
+<style>
+.bilan-container {
+    max-width: 700px;
+    margin: 3rem auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Cartes principales */
+.bilan-card {
+    border-radius: 12px;
+    background: #f9fafb;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.bilan-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+}
+
+.bilan-card h4 {
+    font-weight: 700;
+    color: #0d6efd;
+    margin-bottom: 0.8rem;
+}
+
+.bilan-card p {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.bilan-card .text-success {
+    color: #198754 !important;
+}
+
+.bilan-card .text-danger {
+    color: #dc3545 !important;
+}
+
+.bilan-card .text-primary {
+    color: #0d6efd !important;
+}
+
+/* Liste statistique */
+.stats-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.stats-list li {
+    padding: 0.5rem 0;
+    font-size: 1.05rem;
+    color: #495057;
+    font-weight: 500;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.stats-list li:last-child {
+    border-bottom: none;
+}
+</style>
+
+<div class="bilan-container">
+    <div class="bilan-card">
+        <h4>Total des recettes</h4>
+        <p class="text-success">{{ total_recettes }} FCFA</p>
+    </div>
+
+    <div class="bilan-card">
+        <h4>Total des dépenses</h4>
+        <p class="text-danger">{{ total_depenses }} FCFA</p>
+    </div>
+
+    <div class="bilan-card">
+        <h4>Bénéfice net</h4>
+        <p class="text-primary">{{ benefice_total }} FCFA</p>
+    </div>
+
+    <div class="bilan-card">
+        <h4 class="mb-3">Statistiques supplémentaires</h4>
+        <ul class="stats-list">
+            <li><strong>Conducteurs :</strong> {{ nb_conducteurs }}</li>
+            <li><strong>Motos disponibles :</strong> {{ nb_motos_disponibles }}</li>
+            <li><strong>Motos attribuées :</strong> {{ nb_motos_attribuees }}</li>
+            <li><strong>Motos en réparation :</strong> {{ nb_motos_reparation }}</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

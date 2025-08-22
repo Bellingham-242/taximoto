@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taxi Moto Pour Tous - Accueil</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        scroll-behavior: smooth;
+        line-height: 1.6;
+    }
+    .navbar {
+        background: #0d1b2a;
+    }
+    .navbar .nav-link {
+        color: #f0f0f0 !important;
+        transition: color 0.3s;
+    }
+    .navbar .nav-link:hover, .navbar .nav-link.active {
+        color: #ffc107 !important;
+    }
+    .navbar-brand {
+        font-size: 2.5rem;
+        color: #ffc107 !important;
+    }
+    .hero {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background: url('/static/image_4.png') center/cover no-repeat;
+        height: 100vh;
+    }
+    .hero::after {
+        content: "";
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.5);
+    }
+    .hero .container {
+        position: relative;
+        z-index: 2;
+    }
+    .hero h1 {
+        font-size: 3rem;
+    }
+    .hero p {
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem;
+    }
+    section {
+        padding: 6rem 0;
+    }
+    #services {
+        background: #f8f9fa;
+    }
+    #services h2, #apropos h2, #contact h2 {
+        font-size: 2.5rem;
+    }
+    #services .fa-3x {
+        margin-bottom: 1rem;
+    }
+    #apropos img {
+        max-width: 100%;
+        border-radius: 15px;
+    }
+    .contact form {
+        border: none;
+    }
+    .contact input, .contact textarea {
+        border-radius: 10px;
+        border: 1px solid #ced4da;
+    }
+    .contact button {
+        border-radius: 10px;
+        background: #ffc107;
+        border: none;
+        color: #000;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+    .contact button:hover {
+        background: #e0a800;
+        color: #fff;
+    }
+    footer {
+        background: #0d1b2a;
+        color: #fff;
+    }
+    @media(max-width:768px){
+        .hero h1 { font-size: 2rem; }
+        .hero p { font-size: 1rem; }
+        #apropos .col-md-6 { margin-bottom: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">Taxi Moto Pour Tous</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="#">Accueil</a></li>
+          <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="#apropos">À propos</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero d-flex align-items-center text-white">
+    <div class="container text-center">
+      <h1 class="display-3 fw-bold">Votre transport moto, sûr et fiable, partout et à tout moment</h1>
+      <p class="lead">Taxi Moto Pour Tous vous offre une expérience de transport rapide, sécurisée et flexible. Chaque trajet est suivi, chaque conducteur est vérifié, pour garantir votre sécurité et votre confort.</p>
+      <a href="#services" class="btn btn-primary btn-lg mt-3">Explorez nos services</a>
+    </div>
+  </header>
+
+  <!-- Services -->
+  <section id="services">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="fw-bold">Nos Services</h2>
+        <p class="text-muted">Des solutions adaptées à tous vos besoins de transport moto, avec sécurité et fiabilité garanties.</p>
+      </div>
+      <div class="row g-4 text-center">
+        <div class="col-md-4">
+          <i class="fas fa-bolt fa-3x text-primary mb-3"></i>
+          <h5>Trajets rapides</h5>
+          <p>Profitez de trajets optimisés pour gagner du temps et arriver à l’heure, partout en ville.</p>
+        </div>
+        <div class="col-md-4">
+          <i class="fas fa-shield-alt fa-3x text-success mb-3"></i>
+          <h5>Transport sécurisé</h5>
+          <p>Nos conducteurs vérifiés assurent un trajet en toute sécurité, avec suivi en temps réel.</p>
+        </div>
+        <div class="col-md-4">
+          <i class="fas fa-box fa-3x text-warning mb-3"></i>
+          <h5>Livraisons des colis</h5>
+          <p>Expédiez vos colis rapidement et en toute sécurité grâce à notre service fiable de livraison.</p>
+        </div>
+        <div class="col-md-4">
+          <i class="fas fa-calendar-check fa-3x text-info mb-3"></i>
+          <h5>Abonnement régulier</h5>
+          <p>Bénéficiez de trajets réguliers planifiés selon vos besoins, avec tarifs préférentiels.</p>
+        </div>
+        <div class="col-md-4 text-center">
+            <i class="fas fa-handshake fa-3x text-purple mb-3"></i>
+            <h5>Respect envers les clients</h5>
+            <p>Chaque client est traité avec courtoisie et professionnalisme, votre confort et satisfaction sont nos priorités.</p>
+        </div>
+        <div class="col-md-4">
+          <i class="fas fa-sync-alt fa-3x text-danger mb-3"></i>
+          <h5>Services flexibles</h5>
+          <p>Choisissez votre trajet, horaire et conducteur selon vos préférences, avec totale liberté.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- À propos -->
+  <section id="apropos" class="bg-light">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <img src="/static/image_2.jpg" class="img-fluid rounded shadow" alt="Taxi Moto Pour Tous">
+        </div>
+        <div class="col-md-6">
+          <h2 class="fw-bold">À propos de Taxi Moto Pour Tous</h2>
+          <p>Taxi Moto Pour Tous est la plateforme leader pour un transport à moto sûr et fiable. Nous nous engageons à offrir des trajets rapides, sécurisés et flexibles pour tous nos clients. Grâce à notre technologie de suivi en temps réel, vous pouvez connaître la position de votre conducteur à tout moment, et chaque conducteur est soigneusement sélectionné et formé pour assurer votre sécurité.</p>
+
+          <p>Nous croyons que le transport moto doit être accessible à tous, sans compromis sur la sécurité. Notre plateforme gère tout, depuis la réservation jusqu’à l’arrivée à destination, en incluant le suivi des trajets, la gestion des paiements et la planification des abonnements réguliers.</p>
+
+          <ul>
+            <li>Transport rapide et optimisé</li>
+            <li>Conducteurs professionnels et vérifiés</li>
+            <li>Livraison de colis en toute sécurité</li>
+            <li>Abonnements réguliers pour vos trajets quotidiens</li>
+            <li>Flexibilité totale pour adapter vos trajets selon vos besoins</li>
+            <li>Suivi et notifications en temps réel</li>
+          </ul>
+
+          <p>Chaque détail est pensé pour garantir la fiabilité de nos services et le confort de nos clients. Que ce soit pour vos trajets quotidiens, vos livraisons ou vos abonnements réguliers, Taxi Moto Pour Tous est votre partenaire de confiance pour un transport sécurisé et efficace.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="contact py-5">
+  <div class="container">
+    <div class="section-title text-center mb-5">
+      <div class="row align-items-center">
+        <div class="col-md-6 mb-4 mb-md-0">
+          <img src="/static/image_5.jpg" class="img-fluid rounded shadow-lg" alt="Taxi Moto Pour Tous">
+        </div>
+        <div class="col-md-6 text-start">
+          <p>
+            Chez <strong>Taxi Moto Pour Tous</strong>, nous savons que vos trajets et vos colis méritent une attention particulière. 
+            Notre mission est de vous offrir un service de transport rapide, sécurisé et accessible à tous, 
+            que ce soit pour vos déplacements quotidiens, vos rendez-vous importants ou l’expédition de vos colis.
+          </p>
+          <p>
+            Nous mettons à votre disposition des conducteurs professionnels, formés et vérifiés, 
+            qui respectent les règles de sécurité et s’engagent à vous offrir une expérience confortable. 
+            Grâce à notre suivi en temps réel, vous gardez toujours un œil sur votre trajet ou votre livraison, 
+            pour voyager et expédier en toute sérénité.
+          </p>
+          <p>
+            Taxi Moto Pour Tous, c’est plus qu’un simple transport : 
+            c’est la garantie d’un partenaire fiable sur lequel vous pouvez compter chaque jour, 
+            partout à Brazzaville et ses environs.
+          </p>
+        </div>
+      </div>
+
+      <hr class="my-5">
+      <h2 class="fw-bold">Posez votre question</h2>
+      <p class="text-muted">Vous avez une question concernant nos services ? Écrivez-la ci-dessous et notre équipe vous répondra rapidement.</p>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %} alert-dismissible fade show" role="alert">
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+          {% endfor %}
+        {% endif %}
+
+        <form action="{% url 'poser_question' %}" method="post" class="p-4 rounded shadow-lg bg-white">
+          {% csrf_token %}
+          <div class="mb-3">
+            {{ form.nom.label_tag }}
+            {{ form.nom }}
+          </div>
+          <div class="mb-3">
+            {{ form.email.label_tag }}
+            {{ form.email }}
+          </div>
+          <div class="mb-3">
+            {{ form.sujet.label_tag }}
+            {{ form.sujet }}
+          </div>
+          <div class="mb-3">
+            {{ form.message.label_tag }}
+            {{ form.message }}
+          </div>
+          <button type="submit" class="btn btn-warning w-100 py-2 fw-bold shadow-sm">
+            <i class="fas fa-paper-plane me-2"></i> Envoyer la question
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+    #contact form input, 
+    #contact form textarea, 
+    #contact form select {
+      border-radius: 10px;
+      border: 1px solid #ced4da;
+      padding: 0.75rem;
+      transition: all 0.3s ease-in-out;
+    }
+
+    #contact form input:focus,
+    #contact form textarea:focus,
+    #contact form select:focus {
+      border-color: #ffc107;
+      box-shadow: 0 0 8px rgba(255, 193, 7, 0.4);
+      outline: none;
+    }
+
+    #contact h2 {
+      color: #1a73e8;
+    }
+
+    #contact p {
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    #contact .btn-warning {
+      background: linear-gradient(45deg, #ffc107, #ffca2c);
+      border: none;
+    }
+
+    #contact .btn-warning:hover {
+      background: linear-gradient(45deg, #ffb300, #ff9800);
+      color: #fff;
+    }
+</style>
+
+
+ <!-- ... reste du code identique jusqu'à la section contact ... -->
+
+<!-- Témoignages clients -->
+<section id="questions-reponses" class="py-5 bg-light">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold text-primary">Questions & Réponses</h2>
+      <p class="text-muted">Découvrez les questions posées par nos visiteurs et les réponses fournies par notre équipe.</p>
+    </div>
+
+    <div class="row g-4">
+      {% for question in questions|dictsortreversed:"date_creation"|slice:":20" %}
+      <div class="col-md-6">
+        <div class="p-4 bg-white rounded-3 shadow-sm h-100 d-flex flex-column">
+          <div class="mb-2">
+            <h6 class="fw-bold text-dark mb-1">
+              <i class="fas fa-question-circle text-primary me-2"></i> {{ question.sujet }}
+            </h6>
+            <p class="fst-italic text-muted small mb-0">
+              Posée par <strong>{{ question.nom }}</strong>
+            </p>
+          </div>
+
+          <p class="mt-3">{{ question.message }}</p>
+
+          {% if question.reponse %}
+          <div class="mt-3 p-3 bg-light border-start border-4 border-success rounded">
+            <p class="mb-1 fw-bold text-success">
+              <i class="fas fa-check-circle me-1"></i> Réponse de l'équipe :
+            </p>
+            <p class="mb-0">{{ question.reponse }}</p>
+          </div>
+          {% else %}
+          <div class="mt-3 p-3 bg-light border-start border-4 border-warning rounded">
+            <p class="mb-0 text-warning">
+              <i class="fas fa-clock me-1"></i> En attente de réponse...
+            </p>
+          </div>
+          {% endif %}
+
+          <div class="mt-auto text-end">
+            <p class="text-muted small mb-0">
+              <i class="far fa-calendar-alt me-1"></i> Posté le {{ question.date_creation|date:"d/m/Y H:i" }}
+            </p>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12 text-center">
+        <p class="text-muted">Aucune question pour le moment. Soyez le premier à poser une question !</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  #questions-reponses h2 {
+    font-size: 2rem;
+    color: #1a73e8;
+  }
+  #questions-reponses .shadow-sm {
+    transition: transform 0.2s ease-in-out;
+  }
+  #questions-reponses .shadow-sm:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1.2rem rgba(0,0,0,0.1);
+  }
+</style>
+
+
+
+<!-- FAQ -->
+<section id="faq" class="py-5 bg-light">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold" style="color:#1a73e8;">FAQ - Questions fréquentes</h2>
+      <p class="text-muted fs-6 mx-auto" style="max-width:600px;">Toutes vos questions sur nos services et la sécurité de vos trajets.</p>
+    </div>
+
+    <style>
+      /* Supprimer les flèches par défaut des boutons accordion */
+      .accordion-button::after {
+        display: none;
+      }
+      .accordion-button {
+        padding: 1rem 1.25rem;
+        font-weight: 600;
+      }
+      .accordion-body {
+        font-weight: 500;
+        line-height: 1.6;
+        padding: 1rem 1.25rem;
+      }
+      .accordion-item {
+        margin-bottom: 1rem;
+      }
+    </style>
+
+    <div class="accordion shadow-sm rounded" id="faqAccordion">
+      <div class="accordion-item border-0 rounded shadow-sm">
+        <div id="collapse1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Est ce chaque conducteur est vérifié, formé et suivi pour garantir la sécurité et la fiabilité ?
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item border-0 rounded shadow-sm">
+        <h2 class="accordion-header" id="faq2">
+          <button class="accordion-button collapsed bg-white text-dark fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
+            Puis-je suivre mon colis ou trajet en temps réel ?
+          </button>
+        </h2>
+        <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Oui, chaque trajet et livraison est suivi en temps réel via notre application ou notre site web.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item border-0 rounded shadow-sm">
+        <h2 class="accordion-header" id="faq3">
+          <button class="accordion-button collapsed bg-white text-dark fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
+            Comment fonctionne l’abonnement régulier ?
+          </button>
+        </h2>
+        <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Vous planifiez vos trajets quotidiens ou hebdomadaires et profitez de tarifs préférentiels avec un conducteur dédié.
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item border-0 rounded shadow-sm">
+        <h2 class="accordion-header" id="faq3">
+          <button class="accordion-button collapsed bg-white text-dark fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
+             Comment garantissez-vous la sécurité des trajets ?
+          </button>
+        </h2>
+        <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Vous planifiez vos trajets quotidiens ou hebdomadaires et profitez de tarifs préférentiels avec un conducteur dédié.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Footer enrichi -->
+<footer class="bg-dark text-white pt-5 pb-3">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <h5 class="fw-bold">Taxi Moto Pour Tous</h5>
+        <p>Transport moto sûr, fiable et rapide. Vos trajets, vos colis, vos abonnements, tout en sécurité.</p>
+      </div>
+      <div class="col-md-4 mb-3">
+        <h5 class="fw-bold">Contact</h5>
+        <p><i class="fas fa-map-marker-alt"></i> Brazzaville, Congo</p>
+        <p><i class="fas fa-phone"></i> +242 000 000 000</p>
+        <p><i class="fas fa-envelope"></i> contact@taximotopourtous.com</p>
+      </div>
+      <div class="col-md-4 mb-3">
+        <h5 class="fw-bold">Suivez-nous</h5>
+        <a href="#" class="text-white me-2"><i class="fab fa-facebook fa-lg"></i></a>
+        <a href="#" class="text-white me-2"><i class="fab fa-twitter fa-lg"></i></a>
+        <a href="#" class="text-white me-2"><i class="fab fa-instagram fa-lg"></i></a>
+        <a href="#" class="text-white"><i class="fab fa-linkedin fa-lg"></i></a>
+        <a href="{% url 'home' %}" class="text-white"><i class="fas fa-home fa-lg"></i></a>
+
+      </div>
+    </div>
+    <hr class="bg-secondary">
+    <p class="text-center mb-0">&copy; 2025 Taxi Moto Pour Tous. Tous droits réservés.</p>
+  </div>
+</footer>

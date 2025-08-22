@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <title>Connexion</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        /* Reset */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            min-height: 60vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            position: relative;
+            overflow: hidden;
+            padding-top: 100px;
+            background: rgb(182, 182, 180) no-repeat center center/cover;
+
+        }
+
+        /* Image de fond */
+        body::before {
+            content:"";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            filter: brightness(0.2); /* ↓ Luminosité réduite */
+            z-index: -1;
+            background-position: center top;
+        }
+
+        .container {
+            max-width: 400px;
+            width: 100%;
+            margin-top: 0px;
+            z-index: 2;
+            position: relative;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #1a73e8;
+            font-weight: 700;
+            text-shadow: 0 1px 3px rgba(26,115,232,0.4);
+            margin-top: 10px;
+        }
+
+        form {
+            background: rgba(255,255,255,0.95); /* un peu transparent pour voir l’image */
+            padding: 2rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 0.6rem 0.9rem;
+            margin-bottom: 1.25rem;
+            border: 1.8px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #1a73e8;
+            outline: none;
+            box-shadow: 0 0 8px #a8c0ff;
+        }
+
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #1a73e8;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover,
+        button:focus {
+            background-color: #155ab6;
+            outline: none;
+        }
+
+        .alert {
+            background-color: #ffdddd;
+            color: #a00;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            text-align: center;
+            border: 1.5px solid #f44336;
+        }
+
+        .top-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .top-link a {
+            color: #1a73e8;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .top-link a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            form {
+                padding: 1.5rem 1rem;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            button {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Connexion</h2>
+
+        {% if form.errors %}
+            <div class="alert">Nom ou mot de passe incorrect.</div>
+        {% endif %}
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+            <label for="username">Nom d'utilisateur</label>
+            <input type="text" id="username" name="username" placeholder="Entrez votre nom" required>
+
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" required>
+
+            <button type="submit">Se connecter</button>
+
+            <div class="top-link">
+                <a href="{% url 'email' %}">Mot de passe oublié ?</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

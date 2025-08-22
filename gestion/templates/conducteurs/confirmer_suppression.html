@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+.confirm-container {
+    max-width: 500px;
+    margin: 5rem auto;
+    padding: 2rem 2.5rem;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.confirm-container h2 {
+    color: #dc3545;
+    margin-bottom: 1rem;
+}
+
+.confirm-container p {
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+.confirm-container form button {
+    padding: 0.65rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 50px;
+    color: #fff;
+    cursor: pointer;
+    margin: 0 0.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.confirm-container form .btn-confirm {
+    background: linear-gradient(135deg,#dc3545,#ff5c5c);
+}
+
+.confirm-container form .btn-confirm:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(220,53,69,0.4);
+}
+
+.confirm-container form .btn-cancel {
+    background-color: #6c757d;
+}
+
+.confirm-container form .btn-cancel:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(108,117,125,0.4);
+}
+</style>
+
+<div class="confirm-container">
+    <h2>Confirmer la suppression</h2>
+    <p>Voulez-vous vraiment supprimer le conducteur <strong>{{ conducteur.user.get_full_name }}</strong> ?</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn-confirm">Oui, supprimer</button>
+        <a href="{% url 'liste_conducteurs' %}" class="btn-cancel" style="padding:0.65rem 1.5rem; display:inline-block; text-decoration:none; color:white; border-radius:50px;">Annuler</a>
+    </form>
+</div>
+{% endblock %}

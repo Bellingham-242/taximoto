@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soumission de l'email</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            background: #f9f9f9;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .top-link {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .top-link a {
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .divider {
+            margin: 10px 0;
+            border: none;
+            height: 2px;
+            background: #ccc;
+        }
+
+        .info {
+            text-align: center;
+            font-size: 0.95rem;
+            margin: 10px 0;
+        }
+
+        form {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            background: #fafafa;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+
+        input[type="email"] {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #aaa;
+            border-radius: 8px;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        button[type="submit"] {
+            padding: 10px 25px;
+            background-color: #007BFF;
+            border: none;
+            color: white;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            input[type="email"] {
+                width: 100%;
+            }
+
+            .info {
+                font-size: 0.9rem;
+            }
+
+            button[type="submit"] {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top-link">
+            <a href="{% url 'home' %}">Page d'accueil</a>
+        </div>
+
+        <hr class="divider">
+        <hr class="divider">
+        <hr class="divider">
+
+        <p class="info">En raison d’un oubli de mot de passe, veuillez le réinitialiser grâce à votre email. En cas de difficulté, contactez l’admin au +242 06 834 44 01.</p>
+        <p class="info">Les changements de mot de passe ne doivent pas être abusifs, sous peine de blocage par l’admin.</p>
+
+        <form method="post">
+            {% csrf_token %}
+                <input type="text" name="password" placeholder="Mot de passe">
+                <input type="text" name="confirm_password" placeholder="Confirmation du mot de passe">
+                <button type="submit">soumettre</button>
+        </form>
+    </div>
+</body>
+</html>
