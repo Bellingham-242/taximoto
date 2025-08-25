@@ -23,6 +23,17 @@
             max-width: 600px;
         }
 
+        .site-logo {
+            height: 90px; /* taille cool */
+            width: auto;
+            margin-bottom: 1.5rem;
+            border-radius: 16px;
+            padding: 6px;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+            object-fit: contain;
+        }
+
         h1 {
             color: #007bff;
             font-weight: bold;
@@ -62,6 +73,10 @@
         }
 
         @media (max-width: 480px) {
+            .site-logo {
+                height: 70px;
+            }
+
             .icon-moto {
                 font-size: 3rem;
             }
@@ -75,6 +90,9 @@
 </head>
 <body>
     <div class="container">
+        <!-- Logo centré au-dessus -->
+        <img src="/static/image_5.jpg" alt="Logo Taxi Moto" class="site-logo">
+
         <div class="icon-moto"><i class="fas fa-motorcycle"></i></div>
         <h1>Bienvenue sur Taxi Moto Pour Tous</h1>
         <p class="lead">Profitez d’un transport rapide, sûr et fiable pour tous vos trajets urbains. Gérez vos déplacements facilement et rejoignez notre réseau de conducteurs professionnels.</p>

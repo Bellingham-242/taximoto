@@ -411,12 +411,6 @@ def liste_pannes(request):
     pannes = Panne.objects.select_related('moto', 'admin').all()
     return render(request, 'pannes/liste_pannes.html', {'pannes': pannes})
 
-from django.contrib import messages
-from django.shortcuts import redirect, render
-from django.contrib.auth.decorators import login_required
-from .models import Recette, Conducteur
-from .forms import RecetteForm
-
 @login_required
 def ajouter_recette(request):
     if request.method == "POST":

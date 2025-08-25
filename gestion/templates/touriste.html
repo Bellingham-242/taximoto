@@ -34,7 +34,7 @@
         justify-content: center;
         align-items: center;
         text-align: center;
-        background: url('/static/image_4.png') center/cover no-repeat;
+        background: url('/static/image_11.jpg') center/cover no-repeat;
         height: 100vh;
     }
     .hero::after {
@@ -99,27 +99,44 @@
         .hero p { font-size: 1rem; }
         #apropos .col-md-6 { margin-bottom: 2rem; }
     }
+
+    /* Logo Navbar */
+    .site-logo {
+      height: 48px;         /* Taille adaptée */
+      width: auto;          /* Respecte les proportions */
+      border-radius: 10px;  /* Coins arrondis */
+      background: #fff;     /* Fond blanc léger */
+      padding: 4px;         /* Espace intérieur */
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Ombre douce */
+      object-fit: contain;
+    }
+
   </style>
 </head>
 <body>
 
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <div class="container">
-      <a class="navbar-brand fw-bold" href="#">Taxi Moto Pour Tous</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link active" href="#">Accueil</a></li>
-          <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-          <li class="nav-item"><a class="nav-link" href="#apropos">À propos</a></li>
-          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-        </ul>
-      </div>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#">
+      <img src="/static/image_5.jpg" alt="Logo Taxi Moto" class="site-logo me-2">
+      Taxi Moto Pour Tous
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link active" href="#">Accueil</a></li>
+        <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+        <li class="nav-item"><a class="nav-link" href="#apropos">À propos</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>
+
 
   <!-- Hero -->
   <header class="hero d-flex align-items-center text-white">
@@ -181,7 +198,7 @@
         </div>
         <div class="col-md-6">
           <h2 class="fw-bold">À propos de Taxi Moto Pour Tous</h2>
-          <p>Taxi Moto Pour Tous est la plateforme leader pour un transport à moto sûr et fiable. Nous nous engageons à offrir des trajets rapides, sécurisés et flexibles pour tous nos clients. Grâce à notre technologie de suivi en temps réel, vous pouvez connaître la position de votre conducteur à tout moment, et chaque conducteur est soigneusement sélectionné et formé pour assurer votre sécurité.</p>
+          <p>Taxi Moto Pour Tous est la plateforme leader pour un transport à moto sûr et fiable. Nous nous engageons à offrir des trajets rapides, sécurisés et flexibles pour tous nos clients. Grâce à notre technologie de suivi en temps réel qui sera ajoutée prochainement, vous pouvez connaître la position de votre conducteur à tout moment, et chaque conducteur est soigneusement sélectionné et formé pour assurer votre sécurité.</p>
 
           <p>Nous croyons que le transport moto doit être accessible à tous, sans compromis sur la sécurité. Notre plateforme gère tout, depuis la réservation jusqu’à l’arrivée à destination, en incluant le suivi des trajets, la gestion des paiements et la planification des abonnements réguliers.</p>
 
@@ -191,7 +208,7 @@
             <li>Livraison de colis en toute sécurité</li>
             <li>Abonnements réguliers pour vos trajets quotidiens</li>
             <li>Flexibilité totale pour adapter vos trajets selon vos besoins</li>
-            <li>Suivi et notifications en temps réel</li>
+            <li>Suivi et notifications en temps réel (à venir prochainement)</li>
           </ul>
 
           <p>Chaque détail est pensé pour garantir la fiabilité de nos services et le confort de nos clients. Que ce soit pour vos trajets quotidiens, vos livraisons ou vos abonnements réguliers, Taxi Moto Pour Tous est votre partenaire de confiance pour un transport sécurisé et efficace.</p>
@@ -217,13 +234,13 @@
           <p>
             Nous mettons à votre disposition des conducteurs professionnels, formés et vérifiés, 
             qui respectent les règles de sécurité et s’engagent à vous offrir une expérience confortable. 
-            Grâce à notre suivi en temps réel, vous gardez toujours un œil sur votre trajet ou votre livraison, 
-            pour voyager et expédier en toute sérénité.
+            Grâce à notre suivi, vous gardez toujours un œil sur votre trajet ou votre livraison, 
+            pour vous déplacer et être livré en toute sérénité.
           </p>
           <p>
             Taxi Moto Pour Tous, c’est plus qu’un simple transport : 
             c’est la garantie d’un partenaire fiable sur lequel vous pouvez compter chaque jour, 
-            partout à Brazzaville et ses environs.
+            partout à Pointe-Noire et ses environs.
           </p>
         </div>
       </div>
@@ -489,3 +506,7 @@
     <p class="text-center mb-0">&copy; 2025 Taxi Moto Pour Tous. Tous droits réservés.</p>
   </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
