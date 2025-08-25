@@ -6,12 +6,12 @@ from .models import User, Moto, Conducteur, Recette, Absence, Panne, Question
 # -----------------------
 # Utilisateur avec rôle
 # -----------------------
-@admin.register(User)
-class UserAdmin(BaseUserAdmin):
-    list_display = ('username', 'email', 'first_name', 'last_name', 'role', 'is_staff', 'is_active')
-    list_filter = ('role', 'is_staff', 'is_superuser', 'is_active')
-    search_fields = ('username', 'email', 'first_name', 'last_name')
-    ordering = ('username',)
+# @admin.register(User)
+# class UserAdmin(BaseUserAdmin):
+#     list_display = ('username', 'email', 'first_name', 'last_name', 'role', 'is_staff', 'is_active')
+#     list_filter = ('role', 'is_staff', 'is_superuser', 'is_active')
+#     search_fields = ('username', 'email', 'first_name', 'last_name')
+#     ordering = ('username',)
 
 
 # -----------------------
