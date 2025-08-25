@@ -23,14 +23,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-g9bmm!kf&9aoe55%*1ixzvnfpv8zhh&$mha$v#8(8y5!j%r8v8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = False
-DEBUG = True
+DEBUG = False
+#DEBUG = True
 
 
 # Paramètres basiques
 SECRET_KEY = '0ss&6dmktwxu^z-*4_njh@_i4u(kd3g0k3sf#r31*r(+u6(qg0'
-#ALLOWED_HOSTS = ['taximotopourtous.pythonanywhere.com']
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['taximotopourtous.pythonanywhere.com']
+# ALLOWED_HOSTS = []
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
