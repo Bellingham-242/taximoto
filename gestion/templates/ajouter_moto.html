@@ -13,28 +13,47 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Boutons principaux et action-btn */
-.action-btn, .action-btn a, button[type="submit"], .delete-btn {
-    text-decoration: none !important; /* supprime le soulignement */
-    display: flex !important;          /* assure un alignement flexible */
-    justify-content: center;           /* centre horizontalement le contenu */
-    align-items: center;               /* centre verticalement le contenu */
-    width: 100%;                       /* prend toute la largeur du td ou form */
-    gap: 0.4rem;                       /* espace entre icône et texte */
-    text-align: center;                /* texte centré */
+/* Boutons uniformes */
+button, .action-btn, .delete-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4rem;
+    width: auto;
+    padding: 0.65rem 1.2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    background: linear-gradient(135deg,#0d6efd,#5aa0ff);
+    transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+    text-align: center;
 }
-
-/* Pour les liens <a> dans les boutons */
-.action-btn a {
-    color: #fff !important;            /* texte blanc */
-}
-
-/* Hover + transition */
-.action-btn:hover, button[type="submit"]:hover, .delete-btn:hover {
+button:hover, .action-btn:hover, .delete-btn:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 15px rgba(13,110,253,0.4);
+    box-shadow: 0 0 18px rgba(13,110,253,0.35);
+    background: linear-gradient(135deg,#3390ff,#0d6efd);
 }
+button[disabled], .action-btn[disabled] {
+    background: #6c757d !important;
+    cursor: not-allowed;
+}
+.action-btn a { color: #fff !important; text-decoration: none; width: 100%; display: inline-flex; justify-content: center; align-items: center; }
 
+/* Alert info */
+.alert-info {
+    background-color: #e6f0ff;
+    border: 1px solid #cce0ff;
+    color: #0d6efd;
+    font-weight: 500;
+    border-radius: 12px;
+    text-align: center;
+    padding: 1rem 1.2rem;
+    margin-bottom: 2rem;
+    font-size: 1.05rem;
+}
 
 /* Titres */
 .form-container h2, .form-container h3 {
@@ -60,45 +79,7 @@ input[type="text"]:focus, select:focus {
     outline: none;
 }
 
-/* Boutons */
-button[type="submit"], .delete-btn, .action-btn {
-    margin-top: 1rem;
-    background: linear-gradient(135deg,#0d6efd,#5aa0ff);
-    color: #fff;
-    border: none;
-    padding: 0.65rem 1.2rem;
-    border-radius: 50px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-}
-button[type="submit"]:hover, .delete-btn:hover, .action-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 18px rgba(13,110,253,0.35);
-    background: linear-gradient(135deg,#3390ff,#0d6efd);
-}
-button[disabled] {
-    background: #6c757d !important;
-    cursor: not-allowed;
-}
-
-/* Alert info */
-.alert-info {
-    background-color: #e6f0ff;
-    border: 1px solid #cce0ff;
-    color: #0d6efd;
-    font-weight: 500;
-    border-radius: 12px;
-    text-align: center;
-    padding: 1rem 1.2rem;
-    margin-bottom: 2rem;
-    font-size: 1.05rem;
-}
-
-/* Tableau stylé */
+/* Tableau */
 table {
     width: 100%;
     border-collapse: separate;
@@ -109,24 +90,11 @@ table {
     margin-top: 2rem;
     background: #fff;
 }
-thead {
-    background: #0d6efd;
-    color: white;
-    font-weight: 600;
-}
+thead { background: #0d6efd; color: white; font-weight: 600; }
 tbody tr:nth-child(even) { background: #e9f2ff; }
 tbody tr:nth-child(odd) { background: #ffffff; }
-tbody tr:hover { 
-    background: rgba(13,110,253,0.08); 
-    transition: background 0.3s; 
-}
+tbody tr:hover { background: rgba(13,110,253,0.08); transition: background 0.3s; }
 td, th { padding: 0.85rem 1rem; text-align: center; vertical-align: middle; }
-
-/* Select de statut */
-select {
-    cursor: pointer;
-    font-weight: 500;
-}
 
 /* Responsive */
 @media (max-width: 576px) {
@@ -135,12 +103,11 @@ select {
     tr { margin-bottom: 1rem; background: white; padding: 1rem; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
     td { position: relative; padding-left: 50%; text-align: right; border: none; }
     td::before { position: absolute; top: 0.75rem; left: 1rem; width: 45%; font-weight: 600; color: #0d6efd; content: attr(data-label); text-align: left; font-size:0.95rem; }
-    .delete-btn, .action-btn { width: 100%; margin-top: 0.5rem; justify-content: center; }
+    .action-btn, .delete-btn { width: 100%; margin-top: 0.5rem; justify-content: center; }
 }
 </style>
 
 <div class="form-container">
-
     <div class="alert alert-info">
         <a href="{% url 'admin_dashboard' %}" style="text-decoration: none; color:#0d6efd;">← Retour au tableau de bord admin</a>
     </div>
@@ -155,25 +122,24 @@ select {
         <button type="submit">Ajouter</button>
     </form>
 
+    <h3>Actions disponibles</h3>
     <table>
-        <tr>
-            <th><h2>Actions</h2></th>
-        </tr>
-       <tr>
-            <td>
-                <a class="action-btn" href="{% url 'ajouter_panne' %}" 
-                    {% if moto.statut != 'reparation' %}disabled{% endif %}>
-                    <i class="bi bi-tools"></i> Ajoutez des pannes 
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <a class="action-btn" href="{% url 'liste_pannes' %}">
-                    <i class="bi bi-card-list"></i> Voir la liste des Pannes
-                </a>
-            </td>
-        </tr>
+        <tbody>
+            <tr>
+                <td data-label="Action">
+                    <a class="action-btn" href="{% url 'ajouter_panne' %}" {% if moto.statut != 'reparation' %}disabled{% endif %}>
+                        <i class="bi bi-tools"></i> Ajoutez des pannes
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td data-label="Action">
+                    <a class="action-btn" href="{% url 'liste_pannes' %}">
+                        <i class="bi bi-card-list"></i> Voir la liste des Pannes
+                    </a>
+                </td>
+            </tr>
+        </tbody>
     </table>
 
     {% if motos %}
@@ -207,7 +173,9 @@ select {
                     <td data-label="Action">
                         <form action="{% url 'supprimer_moto' moto.id %}" method="post" style="display:inline;">
                             {% csrf_token %}
-                            <button class="delete-btn" onclick="return confirm('Supprimer cette moto ?');">Supprimer</button>
+                            <button class="delete-btn" onclick="return confirm('Supprimer cette moto ?');">
+                                <i class="bi bi-trash"></i> Supprimer
+                            </button>
                         </form>
                     </td>
                 </tr>
@@ -217,6 +185,5 @@ select {
     {% else %}
         <p class="text-center text-muted mt-4">Aucune moto enregistrée.</p>
     {% endif %}
-
 </div>
 {% endblock %}
