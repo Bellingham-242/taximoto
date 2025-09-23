@@ -231,22 +231,15 @@ select {
         <button type="submit">Ajouter</button>
     </form>
 
-    <table>
-        <tr>
-            <th><h2>Actions</h2></th>
-        </tr>
-       <tr>
-            <td>
-                <a class="action-btn" href="{% url 'ajouter_panne' %}" 
-                    {% if moto.statut != 'reparation' %}disabled{% endif %}>
-                    Ajout pannes 
-                </a>
-                <a class="action-btn" href="{% url 'liste_pannes' %}">
-                liste Pannes
-                </a>
-            </td>
-        </tr>
-    </table>
+   <div style="max-width: 400px; margin: 1rem auto; display: flex; flex-direction: column; gap: 0.5rem;">
+        <a class="action-btn" href="{% url 'ajouter_panne' %}"
+        {% if moto.statut != 'reparation' %}disabled{% endif %}>
+        Ajoutez des pannes
+        </a>
+        <a class="action-btn" href="{% url 'liste_pannes' %}">
+        Voir la liste des Pannes
+        </a>
+    </div>
 
     {% if motos %}
         <h3>Liste des motos</h3>
