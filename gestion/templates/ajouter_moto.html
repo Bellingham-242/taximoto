@@ -239,14 +239,10 @@ select {
             <td>
                 <a class="action-btn" href="{% url 'ajouter_panne' %}" 
                     {% if moto.statut != 'reparation' %}disabled{% endif %}>
-                    Ajoutez des pannes 
+                    Ajout pannes 
                 </a>
-            </td>
-        </tr>
-        <tr>
-            <td>
                 <a class="action-btn" href="{% url 'liste_pannes' %}">
-                Voir la liste des Pannes
+                liste Pannes
                 </a>
             </td>
         </tr>
