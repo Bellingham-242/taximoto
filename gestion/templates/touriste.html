@@ -114,14 +114,6 @@
       object-fit: contain;
     }
   /* Réduction de la navbar pour petits écrans */
-.navbar-brand {
-    font-size: 1rem; /* réduire la taille du texte */
-}
-
-.navbar-brand .site-logo {
-    width: 30px;      /* réduire la taille du logo */
-    height: auto;
-}
 
 /* Ajustement pour très petits écrans */
 @media (max-width: 375px) {
@@ -133,6 +125,32 @@
     }
     .navbar-nav .nav-link {
         font-size: 0.85rem;  /* liens de menu plus petits */
+    }
+}
+
+/* Navbar brand responsive */
+.navbar-brand {
+    font-size: clamp(1rem, 2.5vw, 2.5rem); /* min 1rem, max 2.5rem, proportionnel à l’écran */
+    color: #ffc107 !important;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Logo responsive */
+.navbar-brand .site-logo {
+    width: clamp(25px, 3vw, 50px); /* min 25px, max 50px, proportionnel à l’écran */
+    height: auto;
+}
+
+/* Ajustement pour très petits écrans (<375px) */
+@media (max-width: 375px) {
+    .navbar-brand {
+        font-size: 0.95rem; /* texte un peu plus petit */
+    }
+    .navbar-brand .site-logo {
+        width: 25px; /* logo réduit */
     }
 }
 </style>
