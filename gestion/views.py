@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .models import Conducteur, Recette, Moto, Absence, Question
+from .models import Conducteur, Recette, Moto, Absence, Question, Panne
 from django.db.models import Sum
 from datetime import date
 from django.utils.timezone import now
@@ -365,11 +365,19 @@ def modifier_statut_moto(request, moto_id):
     # redirige vers la page actuelle (ou tableau de bord)
     return redirect(request.META.get('HTTP_REFERER', 'admin_dashboard'))
 
+
 def bilan_general(request):
+    # Recettes et dépenses (depuis Recette)
     total_recettes = Recette.objects.aggregate(total=Sum('montant'))['total'] or 0
     total_depenses = Recette.objects.aggregate(total=Sum('depense'))['total'] or 0
-    benefice_total = total_recettes - total_depenses
 
+    # Dépenses liées aux pannes
+    total_pannes = Panne.objects.aggregate(total=Sum('montant_depense'))['total'] or 0
+
+    # Bénéfice net = recettes - (dépenses + pannes)
+    benefice_total = total_recettes - (total_depenses + total_pannes)
+
+    # Statistiques diverses
     nb_conducteurs = Conducteur.objects.count()
     nb_motos_disponibles = Moto.objects.filter(statut='disponible').count()
     nb_motos_attribuees = Moto.objects.filter(statut='attribuee').count()
@@ -378,6 +386,7 @@ def bilan_general(request):
     context = {
         'total_recettes': total_recettes,
         'total_depenses': total_depenses,
+        'total_pannes': total_pannes,
         'benefice_total': benefice_total,
         'nb_conducteurs': nb_conducteurs,
         'nb_motos_disponibles': nb_motos_disponibles,

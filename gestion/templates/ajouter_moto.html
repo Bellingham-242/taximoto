@@ -159,12 +159,16 @@ select {
         <tr>
             <th><h2>Actions</h2></th>
         </tr>
-        <tr>
-            <td style="width: 100%;"> 
+       <tr>
+            <td>
                 <a class="action-btn" href="{% url 'ajouter_panne' %}" 
                     {% if moto.statut != 'reparation' %}disabled{% endif %}>
                     <i class="bi bi-tools"></i> Ajoutez des pannes 
                 </a>
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <a class="action-btn" href="{% url 'liste_pannes' %}">
                     <i class="bi bi-card-list"></i> Voir la liste des Pannes
                 </a>

@@ -49,11 +49,16 @@
         z-index: 2;
     }
     .hero h1 {
-        font-size: 3rem;
+      font-size: clamp(1.5rem, 6vw, 3rem); /* adapte la taille automatiquement */
+      line-height: 1.3;                     /* espace vertical lisible */
+      word-wrap: break-word;                 /* coupe si un mot est trop long */
     }
     .hero p {
         font-size: 1.3rem;
         margin-bottom: 1.5rem;
+    }
+    .hero .container {
+      padding: 0 1rem; /* espace sur les côtés en mobile */
     }
     section {
         padding: 6rem 0;
@@ -218,7 +223,7 @@
   </section>
 
   <!-- Contact -->
-  <section id="contact" class="contact py-5">
+  <section  class="contact py-5">
   <div class="container">
     <div class="section-title text-center mb-5">
       <div class="row align-items-center">
@@ -246,7 +251,8 @@
       </div>
 
       <hr class="my-5">
-      <h2 class="fw-bold">Posez votre question</h2>
+      <h2 class="fw-bold" id="contact">Posez votre question</h2>
+      <p>Nous tenons à vous faire savoir que les questions les plus fréquentes de nos utilisateurs sont prises en compte et restent sur la plateforme afin d'aider ceux qui ont les mêmes préoccupations d'être informé. Pour des prises de rendez-vous ou autre veuillez nous contacter par les numeros ou adresses tout en bas du site. Merci d'avance !!!</p>
       <p class="text-muted">Vous avez une question concernant nos services ? Écrivez-la ci-dessous et notre équipe vous répondra rapidement.</p>
     </div>
 
@@ -427,53 +433,79 @@
     </style>
 
     <div class="accordion shadow-sm rounded" id="faqAccordion">
-      <div class="accordion-item border-0 rounded shadow-sm">
-        <div id="collapse1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
-          <div class="accordion-body">
-            Est ce chaque conducteur est vérifié, formé et suivi pour garantir la sécurité et la fiabilité ?
-          </div>
-        </div>
-      </div>
 
-      <div class="accordion-item border-0 rounded shadow-sm">
-        <h2 class="accordion-header" id="faq2">
-          <button class="accordion-button collapsed bg-white text-dark fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
-            Puis-je suivre mon colis ou trajet en temps réel ?
-          </button>
-        </h2>
-        <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-          <div class="accordion-body">
-            Oui, chaque trajet et livraison est suivi en temps réel via notre application ou notre site web.
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item border-0 rounded shadow-sm">
-        <h2 class="accordion-header" id="faq3">
-          <button class="accordion-button collapsed bg-white text-dark fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
-            Comment fonctionne l’abonnement régulier ?
-          </button>
-        </h2>
-        <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-          <div class="accordion-body">
-            Vous planifiez vos trajets quotidiens ou hebdomadaires et profitez de tarifs préférentiels avec un conducteur dédié.
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item border-0 rounded shadow-sm">
-        <h2 class="accordion-header" id="faq3">
-          <button class="accordion-button collapsed bg-white text-dark fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
-             Comment garantissez-vous la sécurité des trajets ?
-          </button>
-        </h2>
-        <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-          <div class="accordion-body">
-            Vous planifiez vos trajets quotidiens ou hebdomadaires et profitez de tarifs préférentiels avec un conducteur dédié.
-          </div>
-        </div>
+  <!-- 1 -->
+  <div class="accordion-item border-0 rounded shadow-sm">
+    <h2 class="accordion-header" id="faq1">
+      <button class="accordion-button bg-white text-dark fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
+        Est-ce que chaque conducteur est vérifié, formé et suivi ?
+      </button>
+    </h2>
+    <div id="collapse1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+      <div class="accordion-body">
+        Oui. Tous nos conducteurs passent par une vérification stricte (pièces d’identité, casier, assurance), reçoivent une formation de conduite sécurisée et sont suivis régulièrement pour garantir la fiabilité du service.
       </div>
     </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="accordion-item border-0 rounded shadow-sm">
+    <h2 class="accordion-header" id="faq2">
+      <button class="accordion-button collapsed bg-white text-dark fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
+        Puis-je suivre mon trajet ou mon colis en temps réel ?
+      </button>
+    </h2>
+    <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+      <div class="accordion-body">
+        Oui. Notre système de suivi GPS (bientôt disponible) vous permettra de savoir en temps réel où se trouve votre conducteur ou votre colis, directement via notre site ou notre application.
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="accordion-item border-0 rounded shadow-sm">
+    <h2 class="accordion-header" id="faq3">
+      <button class="accordion-button collapsed bg-white text-dark fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
+        Comment fonctionne l’abonnement régulier ?
+      </button>
+    </h2>
+    <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+      <div class="accordion-body">
+        L’abonnement régulier vous permet de réserver vos trajets quotidiens ou hebdomadaires à l’avance. Vous bénéficiez d’un conducteur dédié et de tarifs réduits adaptés à votre fréquence de déplacement.
+      </div>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="accordion-item border-0 rounded shadow-sm">
+    <h2 class="accordion-header" id="faq4">
+      <button class="accordion-button collapsed bg-white text-dark fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4">
+        Comment garantissez-vous la sécurité des trajets ?
+      </button>
+    </h2>
+    <div id="collapse4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+      <div class="accordion-body">
+        La sécurité est notre priorité : nos motos sont régulièrement contrôlées, nos conducteurs respectent le code de la route et vous recevez toutes les informations du conducteur avant le départ (nom, photo, numéro de moto).
+      </div>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="accordion-item border-0 rounded shadow-sm">
+    <h2 class="accordion-header" id="faq5">
+      <button class="accordion-button collapsed bg-white text-dark fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5">
+        Proposez-vous un service de livraison de colis ?
+      </button>
+    </h2>
+    <div id="collapse5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+      <div class="accordion-body">
+        Oui. Nous assurons la livraison rapide et sécurisée de vos colis en ville. Vous pouvez suivre votre livraison et être notifié dès qu’elle est arrivée à destination.
+      </div>
+    </div>
+  </div>
+
+</div>
+
   </div>
 </section>
 
@@ -489,11 +521,11 @@
       <div class="col-md-4 mb-3">
         <h5 class="fw-bold">Contact</h5>
         <p><i class="fas fa-map-marker-alt"></i> Brazzaville, Congo</p>
-        <p><i class="fas fa-phone"></i> +242 000 000 000</p>
-        <p><i class="fas fa-envelope"></i> contact@taximotopourtous.com</p>
+        <p><i class="fas fa-phone"></i> +242 727 22 43</p>
+        <p><i class="fas fa-envelope"></i> taximotopourtous@gmail.com</p>
       </div>
       <div class="col-md-4 mb-3">
-        <h5 class="fw-bold">Suivez-nous</h5>
+        <h5 class="fw-bold">Suivez-nous bientôt sur</h5>
         <a href="#" class="text-white me-2"><i class="fab fa-facebook fa-lg"></i></a>
         <a href="#" class="text-white me-2"><i class="fab fa-twitter fa-lg"></i></a>
         <a href="#" class="text-white me-2"><i class="fab fa-instagram fa-lg"></i></a>

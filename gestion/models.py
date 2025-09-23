@@ -57,6 +57,7 @@ JOURS_SEMAINE = [
     ('Jeudi', 'Jeudi'),
     ('Vendredi', 'Vendredi'),
     ('Samedi', 'Samedi'),
+    ('Dimanche', 'Dimanche'),
 ]
 
 

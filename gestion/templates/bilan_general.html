@@ -89,6 +89,12 @@
     </div>
 
     <div class="bilan-card">
+        <h4>Total des pannes (réparations)</h4>
+        <p class="text-danger">{{ total_pannes }} FCFA</p>
+    </div>
+
+
+    <div class="bilan-card">
         <h4 class="mb-3">Statistiques supplémentaires</h4>
         <ul class="stats-list">
             <li><strong>Conducteurs :</strong> {{ nb_conducteurs }}</li>
@@ -97,5 +103,9 @@
             <li><strong>Motos en réparation :</strong> {{ nb_motos_reparation }}</li>
         </ul>
     </div>
+</div>
+
+<div style="text-align:center;">
+    <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary" style="text-decoration: none; background-color:#0d6efd; color: white;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Retourner au tableau de bord</a>
 </div>
 {% endblock %}
