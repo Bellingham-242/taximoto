@@ -13,6 +13,14 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+@media (max-width: 576px) {
+    .delete-btn, .action-btn, button[type="submit"] {
+        width: 100% !important;
+        margin-top: 0.5rem;
+    }
+}
+
+
 /* Boutons principaux et action-btn */
 .action-btn, .action-btn a, button[type="submit"], .delete-btn {
     text-decoration: none !important; /* supprime le soulignement */
@@ -84,6 +92,49 @@ button[disabled] {
     background: #6c757d !important;
     cursor: not-allowed;
 }
+
+
+/* Boutons principaux : ajouter, supprimer, actions */
+button[type="submit"], .delete-btn, .action-btn {
+    width: 100%;               /* toujours pleine largeur */
+    max-width: 100%;           /* ne dépasse jamais */
+    display: flex;             
+    justify-content: center;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.65rem 1.2rem;
+    border-radius: 12px;       /* plus proche du bouton Ajouter */
+    background: linear-gradient(135deg,#0d6efd,#5aa0ff);
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+}
+
+button[type="submit"]:hover,
+.delete-btn:hover,
+.action-btn:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 15px rgba(13,110,253,0.35);
+    background: linear-gradient(135deg,#3390ff,#0d6efd);
+}
+
+button[disabled], a[disabled] {
+    background: #6c757d !important;
+    cursor: not-allowed;
+    pointer-events: none;      /* désactive le lien également */
+}
+
+/* Pour les <a> à l’intérieur de .action-btn */
+.action-btn {
+    text-decoration: none !important;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+
 
 /* Alert info */
 .alert-info {
