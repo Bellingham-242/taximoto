@@ -128,6 +128,31 @@ select {
     font-weight: 500;
 }
 
+/* Boutons d’action spécifiques à 100% */
+.action-btn {
+    width: 100%;           /* prend toute la largeur */
+}
+
+.action-btn a {
+    display: inline-flex;  /* alignement flex comme les boutons */
+    justify-content: center;
+    align-items: center;
+    width: 100%;           /* lien prend toute la largeur */
+    color: #fff !important;
+    text-decoration: none;
+    gap: 0.4rem;
+    padding: 0.65rem 1.2rem;
+    border-radius: 50px;
+    background: linear-gradient(135deg,#0d6efd,#5aa0ff);
+    transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+}
+.action-btn a:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 18px rgba(13,110,253,0.35);
+    background: linear-gradient(135deg,#3390ff,#0d6efd);
+}
+
+
 /* Responsive */
 @media (max-width: 576px) {
     table, thead, tbody, th, td, tr { display: block; }

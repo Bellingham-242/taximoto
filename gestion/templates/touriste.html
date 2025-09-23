@@ -113,11 +113,30 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       object-fit: contain;
     }
-  </style>
-</head>
-<body>
+  /* Réduction de la navbar pour petits écrans */
+.navbar-brand {
+    font-size: 1rem; /* réduire la taille du texte */
+}
 
-<!-- Navbar -->
+.navbar-brand .site-logo {
+    width: 30px;      /* réduire la taille du logo */
+    height: auto;
+}
+
+/* Ajustement pour très petits écrans */
+@media (max-width: 375px) {
+    .navbar-brand {
+        font-size: 0.85rem;  /* texte encore plus petit */
+    }
+    .navbar-brand .site-logo {
+        width: 25px;          /* logo plus petit */
+    }
+    .navbar-nav .nav-link {
+        font-size: 0.85rem;  /* liens de menu plus petits */
+    }
+}
+</style>
+
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
   <div class="container">
     <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#">
