@@ -1,266 +1,644 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Taxi Moto Pour Tous - Accueil</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <style>
-    body, html {
-        margin: 0;
-        padding: 0;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        scroll-behavior: smooth;
-        line-height: 1.6;
-    }
-    .navbar {
-        background: #0d1b2a;
-    }
-    .navbar .nav-link {
-        color: #f0f0f0 !important;
-        transition: color 0.3s;
-    }
-    .navbar .nav-link:hover, .navbar .nav-link.active {
-        color: #ffc107 !important;
-    }
-    .navbar-brand {
-        font-size: 2.5rem;
-        color: #ffc107 !important;
-    }
-    .hero {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        background: url('/static/image_11.jpg') center/cover no-repeat;
-        padding: 6rem 1rem; /* hauteur dynamique avec padding vertical */
-    }
-    .hero::after {
-        content: "";
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background: rgba(0,0,0,0.5);
-    }
-    .hero .container {
-        position: relative;
-        z-index: 2;
-    }
-    .hero h1 {
-      font-size: clamp(1.5rem, 6vw, 3rem);
-      line-height: 1.3;
-      word-wrap: break-word;
-      margin-bottom: 1rem;
-    }
-    .hero p {
-        font-size: 1.3rem;
-        margin-bottom: 1.5rem;
-    }
-    section {
-        padding: 6rem 0;
-    }
-    #services {
-        background: #f8f9fa;
-    }
-    #services h2, #apropos h2, #contact h2 {
-        font-size: 2.5rem;
-    }
-    #services .fa-3x {
-        margin-bottom: 1rem;
-    }
-    #apropos img {
-        max-width: 100%;
-        border-radius: 15px;
-    }
-    .contact form {
-        border: none;
-    }
-    .contact input, .contact textarea {
-        border-radius: 10px;
-        border: 1px solid #ced4da;
-    }
-    .contact button {
-        border-radius: 10px;
-        background: #ffc107;
-        border: none;
-        color: #000;
-        font-weight: bold;
-        transition: 0.3s;
-    }
-    .contact button:hover {
-        background: #e0a800;
-        color: #fff;
-    }
-    footer {
-        background: #0d1b2a;
-        color: #fff;
-    }
-    @media(max-width:768px){
-        .hero h1 { font-size: 2rem; }
-        .hero p { font-size: 1rem; }
-        #apropos .col-md-6 { margin-bottom: 2rem; }
-    }
+{% extends "element.html" %}
+{% block content %}
+{% load static %}
+   <!-- About Section -->
+<section id="about" class="about section">
 
-    /* Logo Navbar */
-    .site-logo {
-      height: 48px;
-      width: auto;
-      border-radius: 10px;
-      background: #fff;
-      padding: 4px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      object-fit: contain;
-    }
-  /* Réduction de la navbar pour petits écrans */
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-/* Ajustement pour très petits écrans */
-@media (max-width: 375px) {
-    .navbar-brand {
-        font-size: 0.85rem;  /* texte encore plus petit */
-    }
-    .navbar-brand .site-logo {
-        width: 25px;          /* logo plus petit */
-    }
-    .navbar-nav .nav-link {
-        font-size: 0.85rem;  /* liens de menu plus petits */
-    }
-}
+    <div class="row justify-content-center mb-5">
+      <div class="col-lg-8 text-center" data-aos="fade-up" data-aos-delay="200">
+        <h2 class="section-heading">Notre Vision &amp; Mission</h2>
+        <p class="lead">Offrir un transport urbain rapide, fiable et sécurisé pour tous à Pointe-Noire et dans tout le Congo, tout en garantissant une expérience client exceptionnelle.</p>
+      </div>
+    </div>
 
-/* Navbar brand responsive */
-.navbar-brand {
-    font-size: clamp(1rem, 2.5vw, 2.5rem); /* min 1rem, max 2.5rem, proportionnel à l’écran */
-    color: #ffc107 !important;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
+    <div class="row g-4 mb-5">
+      <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+        <div class="feature-box">
+          <div class="icon-container">
+            <i class="bi bi-lightbulb"></i>
+          </div>
+          <h4>Innovation</h4>
+          <p>Adopter des solutions modernes pour rendre vos trajets plus rapides et agréables.</p>
+        </div>
+      </div>
 
-/* Logo responsive */
-.navbar-brand .site-logo {
-    width: clamp(25px, 3vw, 50px); /* min 25px, max 50px, proportionnel à l’écran */
-    height: auto;
-}
+      <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+        <div class="feature-box">
+          <div class="icon-container">
+            <i class="bi bi-graph-up-arrow"></i>
+          </div>
+          <h4>Croissance</h4>
+          <p>Élargir notre réseau pour desservir plus de quartiers et satisfaire plus de clients.</p>
+        </div>
+      </div>
 
-/* Ajustement pour très petits écrans (<375px) */
-@media (max-width: 375px) {
-    .navbar-brand {
-        font-size: 0.95rem; /* texte un peu plus petit */
-    }
-    .navbar-brand .site-logo {
-        width: 25px; /* logo réduit */
-    }
-}
-</style>
+      <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+        <div class="feature-box">
+          <div class="icon-container">
+            <i class="bi bi-shield-check"></i>
+          </div>
+          <h4>Sécurité</h4>
+          <p>Garantir la sécurité de nos passagers grâce à des chauffeurs formés et des motos vérifiées.</p>
+        </div>
+      </div>
 
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
+        <div class="feature-box">
+          <div class="icon-container">
+            <i class="bi bi-people-fill"></i>
+          </div>
+          <h4>Collaboration</h4>
+          <p>Travailler avec nos clients pour améliorer constamment nos services et répondre à leurs besoins.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row align-items-center about-showcase">
+      <div class="col-lg-6 order-lg-2" data-aos="fade-left" data-aos-delay="300">
+        <div class="about-image-grid">
+          <img src="{% static 'assets/img/about/about-15.webp' %}" class="img-grid-main" alt="Notre flotte de motos">
+          <img src="{% static 'assets/img/about/about-17.webp' %}" class="img-grid-secondary" alt="Nos chauffeurs">
+          <img src="{% static 'assets/img/about/about-square-5.webp' %}" class="img-grid-tertiary" alt="Nos bureaux">
+          <div class="experience-badge" data-aos="zoom-in" data-aos-delay="500">
+            <span class="years">3+</span>
+            <span class="text">Années d'expérience</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 order-lg-1" data-aos="fade-right" data-aos-delay="200">
+        <div class="about-content-box">
+          <h3>Transport de Confiance et de Qualité</h3>
+          <p class="mb-4">Taxi Moto Pour Tous offre des trajets rapides et sécurisés aux habitants de Pointe-Noire, avec un service client irréprochable et des chauffeurs professionnels.</p>
+
+          <div class="progress-item">
+            <div class="d-flex justify-content-between">
+              <span class="progress-title">Planification Stratégique</span>
+              <span class="progress-percent">94%</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" style="width: 94%" aria-valuenow="94" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+
+          <div class="progress-item">
+            <div class="d-flex justify-content-between">
+              <span class="progress-title">Développement du Service</span>
+              <span class="progress-percent">87%</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" style="width: 87%" aria-valuenow="87" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+
+          <div class="progress-item">
+            <div class="d-flex justify-content-between">
+              <span class="progress-title">Satisfaction Client</span>
+              <span class="progress-percent">92%</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" style="width: 92%" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+
+          <a href="#services" class="btn btn-discover mt-4">Découvrez nos services</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</section><!-- /About Section -->
+
+   <!-- Stats Section -->
+<section id="stats" class="stats section light-background">
+
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+    <div class="row gy-4">
+
+      <div class="col-lg-6 col-md-12">
+        <div class="stats-overview text-center text-lg-start" data-aos="fade-right" data-aos-delay="200">
+          <h3>Notre croissance en chiffres</h3>
+          <p>Depuis notre création, Taxi Moto Pour Tous a transporté des milliers de clients à travers Pointe-Noire et continue d’étendre son réseau pour offrir un service rapide, sûr et fiable.</p>
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-md-12">
+        <div class="stats-grid" data-aos="zoom-in" data-aos-delay="300">
+          <div class="stats-card">
+            <div class="stats-icon">
+              <i class="bi bi-people-fill"></i>
+            </div>
+            <div class="stats-content">
+              <div class="stats-number">
+                <span data-purecounter-start="0" data-purecounter-end="350" data-purecounter-duration="1" class="purecounter"></span><span class="plus">+</span>
+              </div>
+              <p>Clients satisfaits</p>
+            </div>
+          </div>
+
+          <div class="stats-card">
+            <div class="stats-icon">
+              <i class="bi bi-folder2-open"></i>
+            </div>
+            <div class="stats-content">
+              <div class="stats-number">
+                <span data-purecounter-start="0" data-purecounter-end="1200" data-purecounter-duration="1" class="purecounter"></span><span class="plus">+</span>
+              </div>
+              <p>Courses effectuées</p>
+            </div>
+          </div>
+
+          <div class="stats-card">
+            <div class="stats-icon">
+              <i class="bi bi-headset"></i>
+            </div>
+            <div class="stats-content">
+              <div class="stats-number">
+                <span data-purecounter-start="0" data-purecounter-end="876" data-purecounter-duration="1" class="purecounter"></span><span class="plus">+</span>
+              </div>
+              <p>Heures d'assistance</p>
+            </div>
+          </div>
+
+          <div class="stats-card">
+            <div class="stats-icon">
+              <i class="bi bi-person-workspace"></i>
+            </div>
+            <div class="stats-content">
+              <div class="stats-number">
+                <span data-purecounter-start="0" data-purecounter-end="4" data-purecounter-duration="1" class="purecounter"></span><span class="plus">+</span>
+              </div>
+              <p>Membres d'équipe</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section><!-- /Stats Section -->
+
+  <!-- Services Section -->
+<section id="services" class="services section">
+
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Nos Services</h2>
+    <p>Découvrez les solutions de transport rapide et sécurisé que nous proposons pour vos déplacements en ville.</p>
+  </div><!-- End Section Title -->
+
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+    <div class="services-row">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="services-headline" data-aos="fade-up">
+            <p class="services-subtitle">Votre mobilité, notre priorité</p>
+            <h4 class="services-subtitle">Des solutions adaptées à vos besoins</h4>
+          </div>
+
+          <div class="services-description" data-aos="fade-up" data-aos-delay="100">
+            <p>Taxi Moto Pour Tous offre des trajets rapides, sécurisés et fiables pour tous vos déplacements en ville. Profitez de notre expertise pour arriver à l’heure et en toute sécurité.</p>
+          </div>
+
+          <div class="services-image-container" data-aos="fade-up" data-aos-delay="200">
+            <div class="services-image">
+              <img src="{% static 'assets/img/services/services-12.webp' %}" alt="Nos services de transport" class="img-fluid">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-8">
+          <div class="services-grid">
+            <div class="row gy-4">
+              <!-- Service Item 1 -->
+              <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="service-card">
+                  <div class="service-content text-center">
+                    <div class="service-icon">
+                      <i class="bi bi-geo-alt"></i>
+                    </div>
+                    <div class="service-info">
+                      <h3><a>Courses en ville</a></h3>
+                      <p>Déplacements rapides et efficaces pour vous rendre où vous voulez dans Pointe-Noire et ses environs.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Service Item 2 -->
+              <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="service-card">
+                  <div class="service-content text-center">
+                    <div class="service-icon">
+                      <i class="bi bi-box-seam"></i>
+                    </div>
+                    <div class="service-info">
+                      <h3><a>Livraison de colis</a></h3>
+                      <p>Service rapide et sécurisé pour transporter vos colis urgents à travers la ville et ses quartiers.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <hr>
+
+              <!-- Service Item 3 -->
+              <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="service-card">
+                  <div class="service-content text-center">
+                    <div class="service-icon">
+                      <i class="bi bi-clock-history"></i>
+                    </div>
+                    <div class="service-info">
+                      <h3><a>Disponibilité 24/7</a></h3>
+                      <p>Nos chauffeurs sont disponibles à tout moment pour répondre à vos besoins, même la nuit ou les jours fériés.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Service Item 4 -->
+              <div class="col-md-6" data-aos="fade-up" data-aos-delay="400">
+                <div class="service-card">
+                  <div class="service-content text-center">
+                    <div class="service-icon">
+                      <i class="bi bi-card-checklist"></i>
+                    </div>
+                    <div class="service-info">
+                      <h3><a>Abonnement régulier</a></h3>
+                      <p>Bénéficiez de tarifs préférentiels et de services adaptés avec nos abonnements pour trajets fréquents.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</section><!-- /Services Section -->
+
+    
+   <!-- How We Work Section -->
+<section id="how-we-work" class="how-we-work section">
+
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Comment Nous Fonctionnons</h2>
+    <p>Découvrez les étapes simples pour réserver et profiter de nos services de transport rapide et sécurisé en moto.</p>
+  </div><!-- End Section Title -->
+
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+    <div class="steps-wrapper">
+
+      <div class="step-item" data-aos="fade-right" data-aos-delay="200">
+        <div class="step-content">
+          <div class="step-icon">
+            <i class="bi bi-phone"></i>
+          </div>
+          <div class="step-info">
+            <span class="step-number">Étape 01</span>
+            <h3>Réservation Facile</h3>
+            <p>Appelez-nous ou utilisez notre formulaire en ligne pour réserver votre course rapidement, en indiquant votre point de départ et destination.</p>
+          </div>
+        </div>
+      </div><!-- End Step Item -->
+
+      <div class="step-item" data-aos="fade-left" data-aos-delay="300">
+        <div class="step-content">
+          <div class="step-icon">
+            <i class="bi bi-map"></i>
+          </div>
+          <div class="step-info">
+            <span class="step-number">Étape 02</span>
+            <h3>Assignation d’un Chauffeur</h3>
+            <p>Un de nos chauffeurs qualifiés est rapidement assigné à votre course. Vous recevez les informations nécessaires pour le suivre jusqu’à son arrivée.</p>
+          </div>
+        </div>
+      </div><!-- End Step Item -->
+
+      <div class="step-item" data-aos="fade-right" data-aos-delay="400">
+        <div class="step-content">
+          <div class="step-icon">
+            <i class="bi bi-speedometer2"></i>
+          </div>
+          <div class="step-info">
+            <span class="step-number">Étape 03</span>
+            <h3>Course Sécurisée</h3>
+            <p>Profitez d’un trajet rapide et sûr grâce à nos chauffeurs expérimentés et nos motos entretenues régulièrement.</p>
+          </div>
+        </div>
+      </div><!-- End Step Item -->
+
+      <div class="step-item" data-aos="fade-left" data-aos-delay="500">
+        <div class="step-content">
+          <div class="step-icon">
+            <i class="bi bi-check2-circle"></i>
+          </div>
+          <div class="step-info">
+            <span class="step-number">Étape 04</span>
+            <h3>Paiement & Avis</h3>
+            <p>Paiement rapide à l’arrivée et possibilité de laisser un avis pour améliorer continuellement nos services.</p>
+          </div>
+        </div>
+      </div><!-- End Step Item -->
+
+    </div>
+
+  </div>
+
+</section><!-- /How We Work Section -->
+
+   <!-- FAQ -->
+<section id="faq" class="py-5 bg-light">
   <div class="container">
-    <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#">
-      <img src="/static/image_5.jpg" alt="Logo Taxi Moto" class="site-logo me-2">
-      Taxi Moto Pour Tous
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link active" href="#">Accueil</a></li>
-        <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-        <li class="nav-item"><a class="nav-link" href="#apropos">À propos</a></li>
-        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-      </ul>
+    <div class="text-center mb-5">
+      <h2 class="fw-bold" style="color:#1a73e8;">FAQ - Questions fréquentes</h2>
+      <p class="text-muted fs-6 mx-auto" style="max-width:600px;">Toutes vos questions sur nos services et la sécurité de vos trajets.</p>
+    </div>
+
+    <style>
+      /* Supprimer les flèches par défaut des boutons accordion */
+      .accordion-button::after {
+        display: none;
+      }
+      .accordion-button {
+        padding: 1rem 1.25rem;
+        font-weight: 600;
+      }
+      .accordion-body {
+        font-weight: 500;
+        line-height: 1.6;
+        padding: 1rem 1.25rem;
+      }
+      .accordion-item {
+        margin-bottom: 1rem;
+      }
+    </style>
+
+    <div class="accordion shadow-sm rounded" id="faqAccordion">
+
+  <!-- 1 -->
+  <div class="accordion-item border-0 rounded shadow-sm">
+    <h2 class="accordion-header" id="faq1">
+      <button class="accordion-button bg-white text-dark fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
+        Est-ce que chaque conducteur est vérifié, formé et suivi ?
+      </button>
+    </h2>
+    <div id="collapse1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+      <div class="accordion-body">
+        Oui. Tous nos conducteurs passent par une vérification stricte (pièces d’identité, casier, assurance), reçoivent une formation de conduite sécurisée et sont suivis régulièrement pour garantir la fiabilité du service.
+      </div>
     </div>
   </div>
-</nav>
 
-<!-- Hero -->
-<header class="hero d-flex align-items-center text-white">
-  <div class="container text-center">
-    <h1 class="display-3 fw-bold">Votre transport moto, sûr et fiable, partout et à tout moment</h1>
-    <p class="lead">Taxi Moto Pour Tous vous offre une expérience de transport rapide, sécurisée et flexible. Chaque trajet est suivi, chaque conducteur est vérifié, pour garantir votre sécurité et votre confort.</p>
-    <a href="#services" class="btn btn-primary btn-lg mt-3">Explorez nos services</a>
+  <!-- 2 -->
+  <div class="accordion-item border-0 rounded shadow-sm">
+    <h2 class="accordion-header" id="faq2">
+      <button class="accordion-button collapsed bg-white text-dark fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
+        Puis-je suivre mon trajet ou mon colis en temps réel ?
+      </button>
+    </h2>
+    <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+      <div class="accordion-body">
+        Oui. Notre système de suivi GPS (bientôt disponible) vous permettra de savoir en temps réel où se trouve votre conducteur ou votre colis, directement via notre site ou notre application.
+      </div>
+    </div>
   </div>
-</header>
 
-  <!-- Services -->
-  <section id="services">
-    <div class="container">
-      <div class="text-center mb-5">
-        <h2 class="fw-bold">Nos Services</h2>
-        <p class="text-muted">Des solutions adaptées à tous vos besoins de transport moto, avec sécurité et fiabilité garanties.</p>
+  <!-- 3 -->
+  <div class="accordion-item border-0 rounded shadow-sm">
+    <h2 class="accordion-header" id="faq3">
+      <button class="accordion-button collapsed bg-white text-dark fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
+        Comment fonctionne l’abonnement régulier ?
+      </button>
+    </h2>
+    <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+      <div class="accordion-body">
+        L’abonnement régulier vous permet de réserver vos trajets quotidiens ou hebdomadaires à l’avance. Vous bénéficiez d’un conducteur dédié et de tarifs réduits adaptés à votre fréquence de déplacement.
       </div>
-      <div class="row g-4 text-center">
-        <div class="col-md-4">
-          <i class="fas fa-bolt fa-3x text-primary mb-3"></i>
-          <h5>Trajets rapides</h5>
-          <p>Profitez de trajets optimisés pour gagner du temps et arriver à l’heure, partout en ville.</p>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="accordion-item border-0 rounded shadow-sm">
+    <h2 class="accordion-header" id="faq4">
+      <button class="accordion-button collapsed bg-white text-dark fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4">
+        Comment garantissez-vous la sécurité des trajets ?
+      </button>
+    </h2>
+    <div id="collapse4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+      <div class="accordion-body">
+        La sécurité est notre priorité : nos motos sont régulièrement contrôlées, nos conducteurs respectent le code de la route et vous recevez toutes les informations du conducteur avant le départ (nom, photo, numéro de moto).
+      </div>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="accordion-item border-0 rounded shadow-sm">
+    <h2 class="accordion-header" id="faq5">
+      <button class="accordion-button collapsed bg-white text-dark fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5">
+        Proposez-vous un service de livraison de colis ?
+      </button>
+    </h2>
+    <div id="collapse5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+      <div class="accordion-body">
+        Oui. Nous assurons la livraison rapide et sécurisée de vos colis en ville. Vous pouvez suivre votre livraison et être notifié dès qu’elle est arrivée à destination.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+  </div>
+</section>
+    <!-- Call To Action Section -->
+   <section id="call-to-action" class="call-to-action section light-background">
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+    <div class="cta-wrapper">
+      <div class="cta-content" data-aos="fade-right" data-aos-delay="200">
+        <h2>Réservez Votre Moto Dès Maintenant !</h2>
+        <p>Rejoignez des milliers de clients satisfaits qui profitent d'un service rapide, sûr et fiable pour tous leurs trajets en ville.</p>
+      </div>
+      <div class="cta-image" data-aos="fade-left" data-aos-delay="300">
+        <img src="/static/assets/img/illustration/illustration-13.webp" alt="Moto Taxi Illustration" class="img-fluid">
+      </div>
+    </div>
+  </div>
+</section><!-- /Call To Action Section -->
+
+   <!-- Team Section -->
+<section id="team" class="team section">
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Notre Équipe</h2>
+    <p>Rencontrez nos chauffeurs et notre personnel dédiés à vous offrir un service rapide et sécurisé.</p>
+  </div><!-- End Section Title -->
+
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+    <div class="row">
+      <div class="col-lg-4 team-intro" data-aos="fade-right" data-aos-delay="200">
+        <div class="team-intro-content">
+          <h2>Nos Experts à Votre Service</h2>
+          <p>Chaque membre de notre équipe est formé pour assurer votre sécurité et rendre vos trajets agréables et efficaces.</p>
+          <div class="team-navigation">
+            <button class="team-nav-prev"><i class="bi bi-arrow-left"></i></button>
+            <button class="team-nav-next"><i class="bi bi-arrow-right"></i></button>
+          </div>
         </div>
-        <div class="col-md-4">
-          <i class="fas fa-shield-alt fa-3x text-success mb-3"></i>
-          <h5>Transport sécurisé</h5>
-          <p>Nos conducteurs vérifiés assurent un trajet en toute sécurité, avec suivi en temps réel.</p>
-        </div>
-        <div class="col-md-4">
-          <i class="fas fa-box fa-3x text-warning mb-3"></i>
-          <h5>Livraisons des colis</h5>
-          <p>Expédiez vos colis rapidement et en toute sécurité grâce à notre service fiable de livraison.</p>
-        </div>
-        <div class="col-md-4">
-          <i class="fas fa-calendar-check fa-3x text-info mb-3"></i>
-          <h5>Abonnement régulier</h5>
-          <p>Bénéficiez de trajets réguliers planifiés selon vos besoins, avec tarifs préférentiels.</p>
-        </div>
-        <div class="col-md-4 text-center">
-            <i class="fas fa-handshake fa-3x text-purple mb-3"></i>
-            <h5>Respect envers les clients</h5>
-            <p>Chaque client est traité avec courtoisie et professionnalisme, votre confort et satisfaction sont nos priorités.</p>
-        </div>
-        <div class="col-md-4">
-          <i class="fas fa-sync-alt fa-3x text-danger mb-3"></i>
-          <h5>Services flexibles</h5>
-          <p>Choisissez votre trajet, horaire et conducteur selon vos préférences, avec totale liberté.</p>
+      </div>
+
+      <div class="col-lg-8 team-carousel-wrap">
+        <div class="team-carousel swiper init-swiper">
+          <script type="application/json" class="swiper-config">
+            {
+              "loop": true,
+              "speed": 800,
+              "autoplay": {
+                "delay": 5000
+              },
+              "slidesPerView": 1,
+              "spaceBetween": 20,
+              "navigation": {
+                "nextEl": ".team-nav-next",
+                "prevEl": ".team-nav-prev"
+              },
+              "breakpoints": {
+                "576": {
+                  "slidesPerView": 2,
+                  "spaceBetween": 20
+                },
+                "992": {
+                  "slidesPerView": 2,
+                  "spaceBetween": 30
+                }
+              }
+            }
+          </script>
+          <div class="swiper-wrapper">
+
+            <div class="swiper-slide">
+              <div class="member-card">
+                <div class="member-image">
+                  <img src="/static/assets/img/person/person-m-3.webp" class="img-fluid" alt="Chauffeur Marcus" loading="lazy">
+                </div>
+                <div class="member-info">
+                  <h3>Marcus Wilson</h3>
+                  <span>Chauffeur Senior</span>
+                  <div class="member-social">
+                    <a><i class="bi bi-twitter-x"></i></a>
+                    <a><i class="bi bi-facebook"></i></a>
+                  </div>
+                  <div class="member-bio">
+                    <p>Avec plus de 10 ans d'expérience, Marcus assure des trajets rapides et sécurisés dans toute la ville.</p>
+                  </div>
+                </div>
+              </div>
+            </div><!-- End slide item -->
+
+            <div class="swiper-slide">
+              <div class="member-card">
+                <div class="member-image">
+                  <img src="/static/assets/img/person/person-f-5.webp" class="img-fluid" alt="Chauffeuse Sophia" loading="lazy">
+                </div>
+                <div class="member-info">
+                  <h3>Sophia Reynolds</h3>
+                  <span>Responsable Logistique</span>
+                  <div class="member-social">
+                    <a><i class="bi bi-twitter-x"></i></a>
+                    <a><i class="bi bi-facebook"></i></a>
+                  </div>
+                  <div class="member-bio">
+                    <p>Sophia organise les courses et s'assure que chaque trajet se déroule sans encombre.</p>
+                  </div>
+                </div>
+              </div>
+            </div><!-- End slide item -->
+
+            <div class="swiper-slide">
+              <div class="member-card">
+                <div class="member-image">
+                  <img src="/static/assets/img/person/person-m-8.webp" class="img-fluid" alt="Chauffeur Daniel" loading="lazy">
+                </div>
+                <div class="member-info">
+                  <h3>Daniel Chen</h3>
+                  <span>Chauffeur</span>
+                  <div class="member-social">
+                    <a><i class="bi bi-twitter-x"></i></a>
+                    <a><i class="bi bi-facebook"></i></a>
+                  </div>
+                  <div class="member-bio">
+                    <p>Daniel est spécialisé dans les trajets rapides et connaît parfaitement les raccourcis de la ville.</p>
+                  </div>
+                </div>
+              </div>
+            </div><!-- End slide item -->
+
+            <div class="swiper-slide">
+              <div class="member-card">
+                <div class="member-image">
+                  <img src="/static/assets/img/person/person-f-9.webp" class="img-fluid" alt="Chauffeuse Olivia" loading="lazy">
+                </div>
+                <div class="member-info">
+                  <h3>Olivia Thompson</h3>
+                  <span>Chargée de Support</span>
+                  <div class="member-social">
+                    <a><i class="bi bi-twitter-x"></i></a>
+                    <a><i class="bi bi-facebook"></i></a>
+                  </div>
+                  <div class="member-bio">
+                    <p>Olivia répond à toutes vos questions et veille à ce que votre expérience soit optimale.</p>
+                  </div>
+                </div>
+              </div>
+            </div><!-- End slide item -->
+
+            <div class="swiper-slide">
+              <div class="member-card">
+                <div class="member-image">
+                  <img src="/static/assets/img/person/person-m-12.webp" class="img-fluid" alt="Chauffeur Jason" loading="lazy">
+                </div>
+                <div class="member-info">
+                  <h3>Jason Parker</h3>
+                  <span>Chauffeur</span>
+                  <div class="member-social">
+                    <a><i class="bi bi-twitter-x"></i></a>
+                    <a><i class="bi bi-facebook"></i></a>
+                  </div>
+                  <div class="member-bio">
+                    <p>Jason assure des trajets sûrs et ponctuels, tout en offrant un accueil chaleureux aux clients.</p>
+                  </div>
+                </div>
+              </div>
+            </div><!-- End slide item -->
+
+          </div>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- À propos -->
-  <section id="apropos" class="bg-light">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-md-6">
-          <img src="/static/image_2.jpg" class="img-fluid rounded shadow" alt="Taxi Moto Pour Tous">
-        </div>
-        <div class="col-md-6">
-          <h2 class="fw-bold">À propos de Taxi Moto Pour Tous</h2>
-          <p>Taxi Moto Pour Tous est la plateforme leader pour un transport à moto sûr et fiable. Nous nous engageons à offrir des trajets rapides, sécurisés et flexibles pour tous nos clients. Grâce à notre technologie de suivi en temps réel qui sera ajoutée prochainement, vous pouvez connaître la position de votre conducteur à tout moment, et chaque conducteur est soigneusement sélectionné et formé pour assurer votre sécurité.</p>
+  </div>
+</section><!-- /Team Section -->
 
-          <p>Nous croyons que le transport moto doit être accessible à tous, sans compromis sur la sécurité. Notre plateforme gère tout, depuis la réservation jusqu’à l’arrivée à destination, en incluant le suivi des trajets, la gestion des paiements et la planification des abonnements réguliers.</p>
-
-          <ul>
-            <li>Transport rapide et optimisé</li>
-            <li>Conducteurs professionnels et vérifiés</li>
-            <li>Livraison de colis en toute sécurité</li>
-            <li>Abonnements réguliers pour vos trajets quotidiens</li>
-            <li>Flexibilité totale pour adapter vos trajets selon vos besoins</li>
-            <li>Suivi et notifications en temps réel (à venir prochainement)</li>
-          </ul>
-
-          <p>Chaque détail est pensé pour garantir la fiabilité de nos services et le confort de nos clients. Que ce soit pour vos trajets quotidiens, vos livraisons ou vos abonnements réguliers, Taxi Moto Pour Tous est votre partenaire de confiance pour un transport sécurisé et efficace.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact -->
+    <!-- Contact -->
   <section  class="contact py-5">
   <div class="container">
     <div class="section-title text-center mb-5">
       <div class="row align-items-center">
         <div class="col-md-6 mb-4 mb-md-0">
-          <img src="/static/image_5.jpg" class="img-fluid rounded shadow-lg" alt="Taxi Moto Pour Tous">
+          <img src="/static/assets/img/image.png" class="img-fluid rounded shadow-lg" alt="Taxi Moto Pour Tous">
         </div>
         <div class="col-md-6 text-start">
           <p>
@@ -321,6 +699,7 @@
             <i class="fas fa-paper-plane me-2"></i> Envoyer la question
           </button>
         </form>
+        
       </div>
     </div>
   </div>
@@ -434,143 +813,4 @@
     box-shadow: 0 0.5rem 1.2rem rgba(0,0,0,0.1);
   }
 </style>
-
-
-
-<!-- FAQ -->
-<section id="faq" class="py-5 bg-light">
-  <div class="container">
-    <div class="text-center mb-5">
-      <h2 class="fw-bold" style="color:#1a73e8;">FAQ - Questions fréquentes</h2>
-      <p class="text-muted fs-6 mx-auto" style="max-width:600px;">Toutes vos questions sur nos services et la sécurité de vos trajets.</p>
-    </div>
-
-    <style>
-      /* Supprimer les flèches par défaut des boutons accordion */
-      .accordion-button::after {
-        display: none;
-      }
-      .accordion-button {
-        padding: 1rem 1.25rem;
-        font-weight: 600;
-      }
-      .accordion-body {
-        font-weight: 500;
-        line-height: 1.6;
-        padding: 1rem 1.25rem;
-      }
-      .accordion-item {
-        margin-bottom: 1rem;
-      }
-    </style>
-
-    <div class="accordion shadow-sm rounded" id="faqAccordion">
-
-  <!-- 1 -->
-  <div class="accordion-item border-0 rounded shadow-sm">
-    <h2 class="accordion-header" id="faq1">
-      <button class="accordion-button bg-white text-dark fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
-        Est-ce que chaque conducteur est vérifié, formé et suivi ?
-      </button>
-    </h2>
-    <div id="collapse1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
-      <div class="accordion-body">
-        Oui. Tous nos conducteurs passent par une vérification stricte (pièces d’identité, casier, assurance), reçoivent une formation de conduite sécurisée et sont suivis régulièrement pour garantir la fiabilité du service.
-      </div>
-    </div>
-  </div>
-
-  <!-- 2 -->
-  <div class="accordion-item border-0 rounded shadow-sm">
-    <h2 class="accordion-header" id="faq2">
-      <button class="accordion-button collapsed bg-white text-dark fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
-        Puis-je suivre mon trajet ou mon colis en temps réel ?
-      </button>
-    </h2>
-    <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-      <div class="accordion-body">
-        Oui. Notre système de suivi GPS (bientôt disponible) vous permettra de savoir en temps réel où se trouve votre conducteur ou votre colis, directement via notre site ou notre application.
-      </div>
-    </div>
-  </div>
-
-  <!-- 3 -->
-  <div class="accordion-item border-0 rounded shadow-sm">
-    <h2 class="accordion-header" id="faq3">
-      <button class="accordion-button collapsed bg-white text-dark fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
-        Comment fonctionne l’abonnement régulier ?
-      </button>
-    </h2>
-    <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-      <div class="accordion-body">
-        L’abonnement régulier vous permet de réserver vos trajets quotidiens ou hebdomadaires à l’avance. Vous bénéficiez d’un conducteur dédié et de tarifs réduits adaptés à votre fréquence de déplacement.
-      </div>
-    </div>
-  </div>
-
-  <!-- 4 -->
-  <div class="accordion-item border-0 rounded shadow-sm">
-    <h2 class="accordion-header" id="faq4">
-      <button class="accordion-button collapsed bg-white text-dark fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4">
-        Comment garantissez-vous la sécurité des trajets ?
-      </button>
-    </h2>
-    <div id="collapse4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-      <div class="accordion-body">
-        La sécurité est notre priorité : nos motos sont régulièrement contrôlées, nos conducteurs respectent le code de la route et vous recevez toutes les informations du conducteur avant le départ (nom, photo, numéro de moto).
-      </div>
-    </div>
-  </div>
-
-  <!-- 5 -->
-  <div class="accordion-item border-0 rounded shadow-sm">
-    <h2 class="accordion-header" id="faq5">
-      <button class="accordion-button collapsed bg-white text-dark fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5">
-        Proposez-vous un service de livraison de colis ?
-      </button>
-    </h2>
-    <div id="collapse5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-      <div class="accordion-body">
-        Oui. Nous assurons la livraison rapide et sécurisée de vos colis en ville. Vous pouvez suivre votre livraison et être notifié dès qu’elle est arrivée à destination.
-      </div>
-    </div>
-  </div>
-
-</div>
-
-  </div>
-</section>
-
-
-<!-- Footer enrichi -->
-<footer class="bg-dark text-white pt-5 pb-3">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 mb-3">
-        <h5 class="fw-bold">Taxi Moto Pour Tous</h5>
-        <p>Transport moto sûr, fiable et rapide. Vos trajets, vos colis, vos abonnements, tout en sécurité.</p>
-      </div>
-      <div class="col-md-4 mb-3">
-        <h5 class="fw-bold">Contact</h5>
-        <p><i class="fas fa-map-marker-alt"></i> Brazzaville, Congo</p>
-        <p><i class="fas fa-phone"></i> +242 06 727 22 43</p>
-        <p><i class="fas fa-envelope"></i> taximotopourtous@gmail.com</p>
-      </div>
-      <div class="col-md-4 mb-3">
-        <h5 class="fw-bold">Suivez-nous bientôt sur</h5>
-        <a href="#" class="text-white me-2"><i class="fab fa-facebook fa-lg"></i></a>
-        <a href="#" class="text-white me-2"><i class="fab fa-twitter fa-lg"></i></a>
-        <a href="#" class="text-white me-2"><i class="fab fa-instagram fa-lg"></i></a>
-        <a href="#" class="text-white"><i class="fab fa-linkedin fa-lg"></i></a>
-        <a href="{% url 'home' %}" class="text-white"><i class="fas fa-home fa-lg"></i></a>
-
-      </div>
-    </div>
-    <hr class="bg-secondary">
-    <p class="text-center mb-0">&copy; 2025 Taxi Moto Pour Tous. Tous droits réservés.</p>
-  </div>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+{% endblock %}
