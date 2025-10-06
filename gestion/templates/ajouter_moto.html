@@ -233,7 +233,7 @@ select {
 
    <div style="max-width: 400px; margin: 1rem auto; display: flex; flex-direction: column; gap: 0.5rem;">
         <a class="action-btn" href="{% url 'ajouter_panne' %}"
-        {% if moto.statut != 'reparation' %}disabled{% endif %}>
+        {% if moto.statut != 'reparation' %}inable{% endif %}>
         Ajoutez des pannes
         </a>
         <a class="action-btn" href="{% url 'liste_pannes' %}">

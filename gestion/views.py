@@ -2,12 +2,16 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .models import Conducteur, Recette, Moto, Absence, Question, Panne
+from functools import wraps
+from .models import Conducteur,ReservationRapide, Recette, Client, Moto, Absence, Question, Panne, Reservation, Abonnement
 from django.db.models import Sum
 from datetime import date
 from django.utils.timezone import now
 import calendar
-from .forms import AttributionMotoForm, PanneForm, RecetteForm, QuestionForm, ReponseForm
+from django.views.generic import FormView
+from django.urls import reverse_lazy
+from django.contrib.auth.hashers import make_password
+from .forms import AttributionMotoForm, PanneForm, ReservationRapideForm, RecetteForm, QuestionForm, ReponseForm, ClientSignUpForm, ClientLoginForm, AbonnementForm, ReservationForm
 from django.utils import timezone
 from django.contrib.admin.views.decorators import staff_member_required
 from .decorators import conducteur_required, admin_required
@@ -69,27 +73,43 @@ def conducteur_dashboard(request):
         'absences': absences
     })
 
+
 # Dashboard admin
 @login_required
 @admin_required
 def admin_dashboard(request):
+    # ----------------------------
+    # Conducteurs et recettes
+    # ----------------------------
     conducteurs = Conducteur.objects.select_related('user', 'moto') \
         .annotate(total_recettes=Sum('recette__montant')) \
         .prefetch_related('recette_set')
 
-    data = []
+    data_conducteurs = []
     for cond in conducteurs:
         recette_du_jour = next((r for r in cond.recette_set.all() if r.date == date.today()), None)
-        data.append({
+        data_conducteurs.append({
             'conducteur': cond,
             'recette_du_jour': recette_du_jour,
             'total_recettes': cond.total_recettes or 0,
         })
-        
+
+    # ----------------------------
+    # Réservations et abonnements
+    # ----------------------------
+    reservations = Reservation.objects.all().order_by('-date_reservation')[:10]
+    abonnements = Abonnement.objects.all().order_by('-date_demande')[:10]
+
+
     if request.user.role != "admin":
         return HttpResponseForbidden("Vous n'avez pas accès à cette page.")
 
-    return render(request, 'admin_dashboard.html', {'conducteurs': data})
+    return render(request, 'admin_dashboard.html', {
+        'conducteurs': data_conducteurs,
+        'reservations': reservations,
+        'abonnements': abonnements,
+    })
+
 
 # Absences - Admin uniquement
 @login_required
@@ -396,8 +416,15 @@ def bilan_general(request):
 
     return render(request, 'bilan_general.html', context)
 
-def admin_required(user):
-    return user.is_authenticated and user.role == 'admin'
+def admin_required(view_func):
+    @wraps(view_func)
+    def wrapper(request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')
+        if request.user.role != 'admin':
+            return redirect('home')
+        return view_func(request, *args, **kwargs)
+    return wrapper
 
 @login_required
 @user_passes_test(admin_required)
@@ -516,3 +543,243 @@ def repondre_question(request, question_id):
     else:
         form = ReponseForm(instance=question)
     return render(request, 'repondre_question.html', {'form': form, 'question': question})
+
+
+# -----------------------------
+# GESTION DES RÉSERVATIONS
+# -----------------------------
+@login_required
+@admin_required
+def reservation_valider(request, pk):
+    res = get_object_or_404(Reservation, pk=pk)
+    res.statut = 'valide'
+    res.save()
+    messages.success(request, f"La réservation de {res.client.user.username} a été validée.")
+    return redirect('admin_dashboard')
+
+@login_required
+@admin_required
+def reservation_rejeter(request, pk):
+    res = get_object_or_404(Reservation, pk=pk)
+    res.statut = 'rejete'
+    res.save()
+    messages.warning(request, f"La réservation de {res.client.user.username} a été rejetée.")
+    return redirect('admin_dashboard')
+
+@login_required
+@admin_required
+def reservation_lu(request, pk):
+    res = get_object_or_404(Reservation, pk=pk)
+    res.statut = 'lu'
+    res.save()
+    messages.info(request, f"La réservation de {res.client.user.username} a été marquée comme lue.")
+    return redirect('admin_dashboard')
+
+
+# -----------------------------
+# GESTION DES ABONNEMENTS
+# -----------------------------
+@login_required
+@admin_required
+def abonnement_valider(request, pk):
+    ab = get_object_or_404(Abonnement, pk=pk)
+    ab.statut = 'valide'
+    ab.save()
+    messages.success(request, f"L'abonnement de {ab.client.user.username} a été validé.")
+    return redirect('admin_dashboard')
+
+@login_required
+@admin_required
+def abonnement_rejeter(request, pk):
+    ab = get_object_or_404(Abonnement, pk=pk)
+    ab.statut = 'rejete'
+    ab.save()
+    messages.warning(request, f"L'abonnement de {ab.client.user.username} a été rejeté.")
+    return redirect('admin_dashboard')
+
+@login_required
+@admin_required
+def abonnement_lu(request, pk):
+    ab = get_object_or_404(Abonnement, pk=pk)
+    ab.statut = 'lu'
+    ab.save()
+    messages.info(request, f"L'abonnement de {ab.client.user.username} a été marqué comme lu.")
+    return redirect('admin_dashboard')
+
+@login_required
+def client_dashboard(request):
+    # Récupère uniquement les réservations du client
+    reservations = Reservation.objects.filter(client__user=request.user).order_by('-date_reservation')
+
+    # Récupère uniquement les abonnements du client
+    abonnements = Abonnement.objects.filter(client__user=request.user).order_by('-date_demande')
+
+    return render(request, 'client_dashboard.html', {
+        'reservations': reservations,
+        'abonnements': abonnements,
+    })
+
+
+def register_client(request):
+    if request.method == 'POST':
+        form = ClientSignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Votre compte client a été créé avec succès ! Vous pouvez maintenant vous connecter.")
+            return redirect('client_login')
+    else:
+        form = ClientSignUpForm()
+    return render(request, 'register_client.html', {'form': form})
+
+def client_login(request):
+    if request.method == 'POST':
+        form = ClientLoginForm(request.POST)
+        if form.is_valid():
+            user = form.cleaned_data['user']
+            login(request, user)
+            messages.success(request, f"Bienvenue {user.username} !")
+            return redirect('client_dashboard')  # redirige vers le dashboard client
+    else:
+        form = ClientLoginForm()
+    return render(request, 'client_login.html', {'form': form})
+
+    
+@login_required
+@admin_required
+def reservation(request):
+    reservations = Reservation.objects.select_related('client__user').order_by('-date_reservation')
+    abonnements = Abonnement.objects.select_related('client__user').prefetch_related('jours').order_by('-date_demande')
+
+    # Totaux pour les réservations
+    total_res_valide = reservations.filter(statut='valide').count()
+    total_res_attente = reservations.filter(statut='en_attente').count()
+    total_res_rejete = reservations.filter(statut='rejete').count()
+
+    # Totaux pour les abonnements
+    total_ab_valide = abonnements.filter(statut='valide').count()
+    total_ab_attente = abonnements.filter(statut='en_attente').count()
+    total_ab_rejete = abonnements.filter(statut='rejete').count()
+
+    context = {
+        'reservations': reservations,
+        'abonnements': abonnements,
+        'res_totals': {
+            'valide': total_res_valide,
+            'attente': total_res_attente,
+            'rejete': total_res_rejete,
+        },
+        'ab_totals': {
+            'valide': total_ab_valide,
+            'attente': total_ab_attente,
+            'rejete': total_ab_rejete,
+        }
+    }
+
+    return render(request, 'reservation.html', context)
+
+
+    
+@login_required
+@admin_required
+def clients_list(request):
+    clients = Client.objects.select_related('user').all()
+    return render(request, 'clients_list.html', {'clients': clients})
+
+@login_required
+def client_ajouter_reservation(request):
+    if request.user.role != 'client':
+        return HttpResponseForbidden("Vous n'avez pas accès à cette page.")
+
+    if request.method == 'POST':
+        form = ReservationForm(request.POST)
+        if form.is_valid():
+            res = form.save(commit=False)
+            res.client = request.user.client
+            res.save()
+            messages.success(request, "Votre réservation a été enregistrée !")
+            return redirect('client_dashboard')
+    else:
+        form = ReservationForm()
+
+    return render(request, 'client_form_reservation.html', {'form': form})
+
+@login_required
+def client_ajouter_abonnement(request):
+    if request.user.role != 'client':
+        return HttpResponseForbidden("Vous n'avez pas accès à cette page.")
+
+    if request.method == 'POST':
+        form = AbonnementForm(request.POST)
+        if form.is_valid():
+            ab = form.save(commit=False)
+            ab.client = request.user.client
+            ab.save()
+            form.save_m2m()  # pour enregistrer les jours sélectionnés
+            messages.success(request, "Votre abonnement a été enregistré !")
+            return redirect('client_dashboard')
+    else:
+        form = AbonnementForm()
+
+    return render(request, 'client_form_abonnement.html', {'form': form})
+
+
+
+def reservations_rapides_view(request):
+    reservations_rapides = ReservationRapide.objects.all().order_by('-date_creation')
+    return render(request, 'reservations_rapides.html', {'reservations_rapides': reservations_rapides})
+
+def reservation_rapide_lu(request, pk):
+    rr = get_object_or_404(ReservationRapide, pk=pk)
+    rr.statut = 'lu'
+    rr.save()
+    return redirect('reservations_rapides')
+
+
+
+def reservation_rapide_view(request):
+    """
+    Vue pour permettre aux utilisateurs d'envoyer une réservation rapide.
+    """
+    if request.method == 'POST':
+        form = ReservationRapideForm(request.POST)
+        if form.is_valid():
+            reservation = form.save(commit=False)
+            
+            # Si l'utilisateur est connecté, on lie automatiquement son profil client
+            if request.user.is_authenticated and hasattr(request.user, 'client'):
+                reservation.client = request.user.client
+            
+            reservation.save()
+            messages.success(request, "Votre réservation rapide a été envoyée avec succès !")
+            return redirect('reservation_rapide')  # nom de l’URL à adapter
+    else:
+        form = ReservationRapideForm()
+
+    context = {
+        'form': form
+    }
+    return render(request, 'reservation_rapide.html', context)
+
+
+@login_required
+@user_passes_test(lambda u: u.is_staff or u.is_superuser)
+def reservations_admin(request):
+    reservations = ReservationRapide.objects.select_related('client').order_by('-date_creation')
+    return render(request, 'reservations_admin.html', {'reservations': reservations})
+
+@login_required
+@staff_member_required  # si seulement les admins peuvent voir
+def liste_reservations_rapides(request):
+    reservations = ReservationRapide.objects.select_related('client').order_by('-date_creation')
+    context = {
+        'reservations': reservations
+    }
+    return render(request, 'liste_reservations_rapides.html', context)
+
+@login_required
+@staff_member_required  # seulement admin
+def supprimer_reservation(request, pk):
+    reservation = get_object_or_404(ReservationRapide, pk=pk)
+    reservation.delete()
+    messages.success(request, "La réservation a été supprimée avec succès.")
+    return redirect('liste_reservations_rapides')

@@ -33,3 +33,23 @@ def admin_required(view_func):
 
         return view_func(request, *args, **kwargs)
     return wrapper
+
+
+# Pour les clients uniquement
+def client_required(view_func):
+    @wraps(view_func)
+    def wrapper(request, *args, **kwargs):
+        # 🔒 Vérifie que l'utilisateur est connecté
+        if not request.user.is_authenticated:
+            return redirect('login')
+
+        # 🔒 Vérifie le rôle
+        if request.user.role != 'client':
+            return redirect('home')
+
+        # 🔒 Vérifie qu’un objet Client existe
+        if not hasattr(request.user, 'client'):
+            return redirect('home')  # ou afficher un message
+
+        return view_func(request, *args, **kwargs)
+    return wrapper

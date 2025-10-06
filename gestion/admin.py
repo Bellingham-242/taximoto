@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from .models import User, Moto, Conducteur, Recette, Absence, Panne, Question
+from .models import User, Moto, Conducteur, Recette, Absence, Panne, Question, Client, Reservation, Abonnement, JourSemaine
 
 
 # -----------------------
@@ -86,3 +86,44 @@ class QuestionAdmin(admin.ModelAdmin):
     list_filter = ('statut', 'date_creation')
     search_fields = ('sujet', 'nom', 'email', 'message', 'reponse')
     date_hierarchy = 'date_creation'
+
+
+# -----------------------
+# Client
+# -----------------------
+@admin.register(Client)
+class ClientAdmin(admin.ModelAdmin):
+    list_display = ('user', 'whatsapp', 'adresse')
+    search_fields = ('user__username', 'user__email', 'whatsapp', 'adresse')
+
+
+# -----------------------
+# Reservation
+# -----------------------
+@admin.register(Reservation)
+class ReservationAdmin(admin.ModelAdmin):
+    list_display = ('client', 'date_course', 'heure_course', 'lieu_depart', 'lieu_arrivee', 'statut')
+    list_filter = ('statut', 'date_course')
+    search_fields = ('client__user__username', 'client__user__email', 'lieu_depart', 'lieu_arrivee')
+    date_hierarchy = 'date_course'
+
+
+# -----------------------
+# Abonnement
+# -----------------------
+@admin.register(Abonnement)
+class AbonnementAdmin(admin.ModelAdmin):
+    list_display = ('client', 'heure_passage', 'lieu_depart', 'lieu_arrivee', 'statut', 'date_demande')
+    list_filter = ('statut', 'date_demande')
+    search_fields = ('client__user__username', 'client__user__email', 'lieu_depart', 'lieu_arrivee')
+    filter_horizontal = ('jours',)
+    date_hierarchy = 'date_demande'
+
+
+# -----------------------
+# JourSemaine
+# -----------------------
+@admin.register(JourSemaine)
+class JourSemaineAdmin(admin.ModelAdmin):
+    list_display = ('nom',)
+    search_fields = ('nom',)

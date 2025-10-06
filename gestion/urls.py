@@ -1,5 +1,12 @@
 from django.urls import path
 from . import views
+from .views import reservations_rapides_view, reservation_rapide_lu
+from django.contrib.sitemaps.views import sitemap
+from .sitemaps import StaticViewSitemap
+
+sitemaps = {
+    'static': StaticViewSitemap,
+}
 
 urlpatterns = [
     path('home', views.home, name='home'),
@@ -32,4 +39,30 @@ urlpatterns = [
     path('bilan-general/', views.bilan_general, name='bilan_general'),
     path('pannes/ajouter/', views.ajouter_panne, name='ajouter_panne'),
     path('pannes/', views.liste_pannes, name='liste_pannes'),
+    
+    # Réservations
+    path('reservation/<int:pk>/valider/', views.reservation_valider, name='reservation_valider'),
+    path('reservation/<int:pk>/rejeter/', views.reservation_rejeter, name='reservation_rejeter'),
+    path('reservation/<int:pk>/lu/', views.reservation_lu, name='reservation_lu'),
+
+    # Abonnements
+    path('abonnement/<int:pk>/valider/', views.abonnement_valider, name='abonnement_valider'),
+    path('abonnement/<int:pk>/rejeter/', views.abonnement_rejeter, name='abonnement_rejeter'),
+    path('abonnement/<int:pk>/lu/', views.abonnement_lu, name='abonnement_lu'),
+    # Dashboard client
+    path('client/dashboard/', views.client_dashboard, name='client_dashboard'),
+    path('register/client/', views.register_client, name='register_client'),
+    path('login/client/', views.client_login, name='client_login'),
+    path('reservations/', views.reservation, name='reservation'),
+    path('admin/clients/', views.clients_list, name='clients_list'),
+    path('client/reservation/ajouter/', views.client_ajouter_reservation, name='client_ajouter_reservation'),
+    path('client/abonnement/ajouter/', views.client_ajouter_abonnement, name='client_ajouter_abonnement'),
+    path('reservation-rapide/', views.reservation_rapide_view, name='reservation_rapide'),
+    path('reservations/', views.reservation, name='reservation'),
+    path('reservation-lu/<int:pk>/', reservation_rapide_lu, name='reservation_rapide_lu'),
+    path('admin/reservations-rapides/', views.reservations_admin, name='reservations_admin'),
+    path('reservations-rapides/', views.liste_reservations_rapides, name='liste_reservations_rapides'),
+    path('reservations-rapides/supprimer/<int:pk>/', views.supprimer_reservation, name='supprimer_reservation'),
+    
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
 ]

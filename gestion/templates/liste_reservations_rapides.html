@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% load static %}
+{% block page_title %}Liste des Réservations Rapides{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background: #f0f4f8;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .reservation-container {
+        max-width: 1100px;
+        margin: 50px auto;
+        padding: 1rem;
+    }
+
+    .reservation-card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 1.5rem 2rem;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        margin-bottom: 1.5rem;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .reservation-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    }
+
+    .reservation-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .reservation-header h4 {
+        font-weight: 600;
+        color: #0d6efd;
+        margin: 0;
+    }
+
+    .reservation-badge {
+        font-size: 0.85rem;
+        padding: 0.3rem 0.6rem;
+        border-radius: 6px;
+        font-weight: 500;
+    }
+
+    .status-en-attente {
+        background-color: #ffc107;
+        color: #212529;
+    }
+
+    .status-lu {
+        background-color: #198754;
+        color: #fff;
+    }
+
+    .reservation-body {
+        margin-bottom: 1rem;
+    }
+
+    .reservation-body p {
+        margin: 0.3rem 0;
+        word-break: break-word;
+    }
+
+    .reservation-actions a {
+        margin-right: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .reservation-actions a.btn {
+        border-radius: 6px;
+        padding: 0.4rem 0.6rem;
+        transition: transform 0.2s ease;
+    }
+
+    .reservation-actions a.btn:hover {
+        transform: translateY(-2px);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .reservation-card {
+            padding: 1rem 1.2rem;
+        }
+        .reservation-header h4 {
+            font-size: 1rem;
+        }
+        .reservation-actions a {
+            margin-bottom: 0.3rem;
+        }
+    }
+</style>
+
+<div class="reservation-container">
+    <h2 class="text-center mb-4"><i class="bi bi-journal-text"></i> Réservations Rapides</h2>
+
+    {% if reservations %}
+        {% for r in reservations %}
+            <div class="reservation-card">
+                <div class="reservation-header">
+                    <h4>{% if r.client %}{{ r.client.username }}{% else %}Anonyme{% endif %}</h4>
+                    <span class="reservation-badge {% if r.statut == 'en attente' %}status-en-attente{% else %}status-lu{% endif %}">
+                        {% if r.statut == 'en attente' %}En attente{% else %}Lu{% endif %}
+                    </span>
+                </div>
+                <div class="reservation-body">
+                    <p><strong>WhatsApp:</strong> {{ r.whatsapp|default:"—" }}</p>
+                    <p><strong>Sujet:</strong> {{ r.sujet }}</p>
+                    <p><strong>Message:</strong> {{ r.message }}</p>
+                    <p><strong>Date:</strong> {{ r.date_creation|date:"d/m/Y H:i" }}</p>
+                </div>
+                <div class="reservation-actions">
+                    {% if r.client.email %}
+                        <a href="mailto:{{ r.client.email }}" class="btn btn-primary">
+                            <i class="bi bi-envelope"></i> Mail
+                        </a>
+                    {% endif %}
+                    {% if r.whatsapp %}
+                        <a href="https://wa.me/{{ r.whatsapp }}" target="_blank" class="btn btn-success">
+                            <i class="bi bi-whatsapp"></i> WhatsApp
+                        </a>
+                    {% endif %}
+
+                    <a href="{% url 'supprimer_reservation' r.id %}" 
+                    class="btn btn-danger" 
+                    onclick="return confirm('Voulez-vous vraiment supprimer cette réservation ?');">
+                        <i class="bi bi-trash"></i> Supprimer
+                    </a>
+
+                    <a href="{% url 'reservations_admin' %}" target="_blank" class="btn btn-success">
+                        <i class="bi bi-arrow-return-left"></i> Retour
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="text-center text-muted">Aucune réservation rapide enregistrée pour le moment.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -9,6 +9,26 @@
   <meta name="description" content="Taxi Moto Pour Tous - Société de transport rapide et sécurisé en moto, disponible à Pointe-Noire et dans tout le Congo.">
   <meta name="keywords" content="taxi moto, transport rapide, livraison, Pointe-Noire, Congo, mobilité urbaine">
 
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Taxi Moto Pour Tous",
+      "image": "https://www.taximotopourtous.com/static/assets/img/image_1.png",
+      "telephone": "+242067272243",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Pointe-Noire",
+        "addressLocality": "Pointe-Noire",
+        "addressCountry": "CG"
+      },
+      "url": "https://www.taximotopourtous.com",
+      "sameAs": [
+        "https://www.facebook.com/taximotopourtous",
+      ]
+    }
+</script>
+
   <!-- Favicons -->
   <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
   <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
@@ -29,153 +49,220 @@
 </head>
 
 <style>
-    body, html {
-        margin: 0;
-        padding: 0;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        scroll-behavior: smooth;
-        line-height: 1.6;
-    }
-    .navbar {
-        background: #0d1b2a;
-    }
-    .navbar .nav-link {
-        color: #f0f0f0 !important;
-        transition: color 0.3s;
-    }
-    .navbar .nav-link:hover, .navbar .nav-link.active {
-        color: #f0e007 !important;
-    }
-    .navbar-brand {
-        font-size: 2.5rem;
-        color: #f0e007 !important;
-    }
-    .hero {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        background: rgb(212, 207, 136);
-        padding: 6rem 1rem; /* hauteur dynamique avec padding vertical */
-    }
-    .hero::after {
-        content: "";
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background: rgba(0,0,0,0.5);
-    }
-    .hero .container {
-        position: relative;
-        z-index: 2;
-    }
-    .hero h1 {
-      font-size: clamp(1.5rem, 6vw, 3rem);
-      line-height: 1.3;
-      word-wrap: break-word;
-      margin-bottom: 1rem;
-    }
-    .hero p {
-        font-size: 1.3rem;
-        margin-bottom: 1.5rem;
-    }
-    section {
-        padding: 6rem 0;
-    }
-    #services {
-        background: #f8f9fa;
-    }
-    #services h2, #apropos h2, #contact h2 {
-        font-size: 2.5rem;
-    }
-    #services .fa-3x {
+      body, html {
+          margin: 0;
+          padding: 0;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          scroll-behavior: smooth;
+          line-height: 1.6;
+      }
+      .navbar {
+          background: #0d1b2a;
+      }
+      .navbar .nav-link {
+          color: #f0f0f0 !important;
+          transition: color 0.3s;
+      }
+      .navbar .nav-link:hover, .navbar .nav-link.active {
+          color: #f0e007 !important;
+      }
+      .navbar-brand {
+          font-size: 2.5rem;
+          color: #f0e007 !important;
+      }
+      .hero {
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          background: rgb(206, 198, 127);
+          padding: 6rem 1rem; /* hauteur dynamique avec padding vertical */
+      }
+      .hero::after {
+          content: "";
+          position: absolute;
+          top: 0; left: 0;
+          width: 100%; height: 100%;
+          background: rgba(0,0,0,0.5);
+      }
+      .hero .container {
+          position: relative;
+          z-index: 2;
+      }
+      .hero h1 {
+        font-size: clamp(1.5rem, 6vw, 3rem);
+        line-height: 1.3;
+        word-wrap: break-word;
         margin-bottom: 1rem;
-    }
-    #apropos img {
-        max-width: 100%;
-        border-radius: 15px;
-    }
-    .contact form {
-        border: none;
-    }
-    .contact input, .contact textarea {
+      }
+      .hero p {
+          font-size: 1.3rem;
+          margin-bottom: 1.5rem;
+      }
+      section {
+          padding: 6rem 0;
+      }
+      #services {
+          background: #f8f9fa;
+      }
+      #services h2, #apropos h2, #contact h2 {
+          font-size: 2.5rem;
+      }
+      #services .fa-3x {
+          margin-bottom: 1rem;
+      }
+      #apropos img {
+          max-width: 100%;
+          border-radius: 15px;
+      }
+      .contact form {
+          border: none;
+      }
+      .contact input, .contact textarea {
+          border-radius: 10px;
+          border: 1px solid #ced4da;
+      }
+      .contact button {
+          border-radius: 10px;
+          background: #f0e007;
+          border: none;
+          color: #000;
+          font-weight: bold;
+          transition: 0.3s;
+      }
+      .contact button:hover {
+          background: #f0e007;
+          color: #fff;
+      }
+      footer {
+          background: #0d1b2a;
+          color: #fff;
+      }
+      @media(max-width:768px){
+          .hero h1 { font-size: 2rem; }
+          .hero p { font-size: 1rem; }
+          #apropos .col-md-6 { margin-bottom: 2rem; }
+      }
+
+      /* Logo Navbar */
+      .site-logo {
+        height: 48px;
+        width: auto;
         border-radius: 10px;
-        border: 1px solid #ced4da;
-    }
-    .contact button {
-        border-radius: 10px;
-        background: #f0e007;
-        border: none;
-        color: #000;
-        font-weight: bold;
-        transition: 0.3s;
-    }
-    .contact button:hover {
-        background: #f0e007;
-        color: #fff;
-    }
-    footer {
-        background: #0d1b2a;
-        color: #fff;
-    }
-    @media(max-width:768px){
-        .hero h1 { font-size: 2rem; }
-        .hero p { font-size: 1rem; }
-        #apropos .col-md-6 { margin-bottom: 2rem; }
+        background: #fff;
+        padding: 4px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        object-fit: contain;
+      }
+    /* Réduction de la navbar pour petits écrans */
+
+  /* Ajustement pour très petits écrans */
+  @media (max-width: 375px) {
+      .navbar-brand {
+          font-size: 0.85rem;  /* texte encore plus petit */
+      }
+      .navbar-brand .site-logo {
+          width: 25px;          /* logo plus petit */
+      }
+      .navbar-nav .nav-link {
+          font-size: 0.85rem;  /* liens de menu plus petits */
+      }
+  }
+
+  /* Navbar brand responsive */
+  .navbar-brand {
+      font-size: clamp(1rem, 2.5vw, 2.5rem); /* min 1rem, max 2.5rem, proportionnel à l’écran */
+      color: #f0e007 !important;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+  }
+
+  /* Logo responsive */
+  .navbar-brand .site-logo {
+      width: clamp(25px, 3vw, 50px); /* min 25px, max 50px, proportionnel à l’écran */
+      height: auto;
+      color: #f0e007 !important;
+  }
+
+  /* Ajustement pour très petits écrans (<375px) */
+  @media (max-width: 375px) {
+      .navbar-brand {
+          font-size: 0.95rem; /* texte un peu plus petit */
+      }
+      .navbar-brand .site-logo {
+          width: 25px; /* logo réduit */
+      }
+  }
+
+    /* --- Optimisations mobile supplémentaires --- */
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
     }
 
-    /* Logo Navbar */
-    .site-logo {
-      height: 48px;
-      width: auto;
-      border-radius: 10px;
-      background: #fff;
-      padding: 4px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      object-fit: contain;
+    /* Réduction automatique des paddings sur mobile */
+    @media (max-width: 768px) {
+      section {
+        padding: 3rem 1rem !important;
+      }
+      .hero {
+        padding: 4rem 1rem !important;
+        text-align: center;
+      }
+      .hero img {
+        width: 100%;
+        height: auto;
+      }
+      .hero-cta a.btn {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+      }
     }
-  /* Réduction de la navbar pour petits écrans */
 
-/* Ajustement pour très petits écrans */
-@media (max-width: 375px) {
-    .navbar-brand {
-        font-size: 0.85rem;  /* texte encore plus petit */
+    /* Adaptation du footer pour mobile */
+    @media (max-width: 576px) {
+      footer .row {
+        text-align: center;
+      }
+      footer .social-links {
+        justify-content: center;
+      }
+      footer h4 {
+        margin-top: 1rem;
+      }
     }
-    .navbar-brand .site-logo {
-        width: 25px;          /* logo plus petit */
+
+    /* Navbar mobile : lisibilité améliorée */
+    .navbar-toggler {
+      border-color: #f0e007;
+    }
+    .navbar-toggler-icon {
+      filter: brightness(2);
+    }
+    .navbar-collapse {
+      background-color: #0d1b2a;
+      padding: 1rem;
     }
     .navbar-nav .nav-link {
-        font-size: 0.85rem;  /* liens de menu plus petits */
+      text-align: center;
+      padding: 0.5rem 0;
     }
-}
+    
 
-/* Navbar brand responsive */
-.navbar-brand {
-    font-size: clamp(1rem, 2.5vw, 2.5rem); /* min 1rem, max 2.5rem, proportionnel à l’écran */
-    color: #f0e007 !important;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-/* Logo responsive */
-.navbar-brand .site-logo {
-    width: clamp(25px, 3vw, 50px); /* min 25px, max 50px, proportionnel à l’écran */
-    height: auto;
-    color: #f0e007 !important;
-}
-
-/* Ajustement pour très petits écrans (<375px) */
-@media (max-width: 375px) {
-    .navbar-brand {
-        font-size: 0.95rem; /* texte un peu plus petit */
+    /* Optimisation de la lisibilité du texte */
+    p, li, a, span {
+      word-wrap: break-word;
     }
-    .navbar-brand .site-logo {
-        width: 25px; /* logo réduit */
+
+    /* Les cartes statistiques s’adaptent */
+    .stat-card {
+      font-size: clamp(0.8rem, 2vw, 1rem);
+      padding: 0.5rem 1rem;
     }
-}
 </style>
 
 
@@ -184,27 +271,42 @@
   <!-- ======= Header ======= -->
   <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#">
+      <img src="{% static 'assets/img/image_1.png' %}" alt="Logo Taxi Moto" class="site-logo me-2">
+      Taxi Moto Pour Tous
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
 
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#">
-          <img src="{% static 'assets/img/image.png' %}" alt="Logo Taxi Moto" class="site-logo me-2">
-          Taxi Moto Pour Tous
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link active" href="#hero">Accueil</a></li>
-            <li class="nav-item"><a class="nav-link" href="#about">À propos</a></li>
-            <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-            <li class="nav-item"><a class="nav-link" href="#team">La Team</a></li>
-            <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        <!-- Dropdown correctement intégré -->
+        <li class="nav-item dropdown">
+          <a class="nav-link active dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Options Clients
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'reservation_rapide' %}">Réservation Rapide</a></li>
+            <li><a class="dropdown-item" href="{% url 'register_client' %}">Créer Compte</a></li>
+            <li><a class="dropdown-item" href="{% url 'client_login' %}">Connexion</a></li>
           </ul>
-        </div>
-      </div>
-    </nav>
+        </li>
+
+        <!-- Liens de navigation normaux -->
+        <li class="nav-item"><a class="nav-link" href="#hero">Accueil</a></li>
+        <li class="nav-item"><a class="nav-link" href="#about">À propos</a></li>
+        <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+        <li class="nav-item"><a class="nav-link" href="#team">La Team</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
 
     </div>
   </header>
@@ -218,9 +320,14 @@
           <div class="col-lg-6">
             <div class="hero-content" data-aos="fade-up" data-aos-delay="100">
               <div class="hero-tag">
+                <div class="hero-cta">
+                  <a href="{% url 'reservation_rapide' %}" class="btn btn-primary" style="border-radius: 50px;">Réservation rapide</a>
+                  <a href="{% url 'register_client' %}" class="btn btn-primary" style="border-radius: 50px;">Créer un compte</a>
+                </div>
                 <i class="bi bi-rocket-takeoff"></i>
-                <span>Pour des transports rapides et fiables</span>
+                <span><h2>Pour des transports rapides et fiables</h2></span>
               </div>
+               
               <h1>Le <span class="highlight">meilleur choix</span> pour vos courses en ville</h1>
               <p class="lead">Taxi Moto Pour Tous vous garantit des trajets rapides, sécurisés et économiques à Pointe-Noire et au-delà.</p>
               <ul class="hero-features">
@@ -291,7 +398,7 @@
           </div>
         </div>
 
-        <div class="col-lg-3 col-md-4 footer-links">
+        <!-- <div class="col-lg-3 col-md-4 footer-links">
           <h4>Liens Utiles</h4>
           <ul>
             <li><a href="#hero">Accueil</a></li>
@@ -300,9 +407,9 @@
             <li><a href="#team">La Team</a></li>
             <li><a href="#contact">Nous Contacter</a></li>
           </ul>
-        </div>
+        </div> -->
 
-        <div class="col-lg-2 col-md-3 footer-links">
+        <div class="col-lg-4 col-md-6 footer-links">
           <h4>Nos Services</h4>
           <ul>
             <li><a>Trajets rapides</a></li>
@@ -313,7 +420,7 @@
           </ul>
         </div>
 
-        <div class="col-lg-3 col-md-3 footer-links">
+        <div class="col-lg-4 col-md-6 footer-links">
           <h4>Nos Qualités</h4>
           <ul>
             <li><a>Agents vérifiés</a></li>

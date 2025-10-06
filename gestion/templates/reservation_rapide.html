@@ -1,0 +1,89 @@
+{% extends "element.html" %}
+{% load static %}
+{% block page_title %}Réservation Rapide{% endblock %}
+
+{% block content %}
+<style>
+    .reservation-container {
+        max-width: 600px;
+        margin: 40px auto;
+        background: white;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+    h2 {
+        text-align: center;
+        font-size: 1.6rem;
+        color: #0d6efd;
+        margin-bottom: 1.5rem;
+    }
+    .btn-contact {
+        width: 100%;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+    .form-control, .btn-submit {
+        margin-bottom: 1rem;
+    }
+</style>
+
+<div class="reservation-container">
+    <h2><i class="bi bi-lightning-charge-fill"></i> Réservation Rapide</h2>
+
+    <!-- 🔹 Messages de succès ou d'erreur -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- 🔹 Contacts directs -->
+    <a href="tel:+242067272243" class="btn btn-success btn-contact">
+        <i class="bi bi-telephone-fill"></i> Appeler la plateforme
+    </a>
+    <a href="https://wa.me/242067272243" target="_blank" class="btn btn-success btn-contact">
+        <i class="bi bi-whatsapp"></i> Contacter via WhatsApp
+    </a>
+
+    <hr>
+
+    <!-- 🔹 Formulaire de réservation rapide -->
+    <form method="POST">
+        {% csrf_token %}
+        {% if not user.is_authenticated %}
+            <div class="mb-3">
+                {{ form.client.label_tag }}
+                {{ form.client }}
+            </div>
+        {% endif %}
+        <div class="mb-3">
+            {{ form.whatsapp.label_tag }}
+            {{ form.whatsapp }}
+        </div>
+        <div class="mb-3">
+            {{ form.sujet.label_tag }}
+            {{ form.sujet }}
+        </div>
+        <div class="mb-3">
+            {{ form.message.label_tag }}
+            {{ form.message }}
+        </div>
+        <button type="submit" class="btn btn-primary w-100 btn-submit">
+            <i class="bi bi-send-fill"></i> Envoyer la Réservation
+        </button>
+        <button type="button" class="btn btn-warning w-100 btn-back" onclick="window.history.back();">
+            <i class="bi bi-arrow-left"></i> Retour
+        </button>
+    </form>
+</div>
+
+
+{% endblock %}

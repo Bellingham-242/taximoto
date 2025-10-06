@@ -1,0 +1,326 @@
+{% extends "base.html" %}
+{% block page_title %}Réservations et Abonnements{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background-color: #f5f7fb;
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+
+    .dashboard-container {
+        max-width: 1250px;
+        margin: 40px auto;
+        padding: 2rem;
+    }
+
+    .card-section {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        padding: 1.8rem;
+        margin-bottom: 3rem;
+        transition: transform 0.2s ease;
+    }
+    .card-section:hover {
+        transform: translateY(-3px);
+    }
+
+    h2 {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: #0d6efd;
+        border-left: 5px solid #0d6efd;
+        padding-left: 10px;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    th {
+        background-color: #0d6efd;
+        color: white;
+        border: none;
+        font-weight: 500;
+    }
+
+    .table {
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9fbfd;
+    }
+
+    .badge {
+        font-size: 0.85rem;
+        border-radius: 5px;
+        padding: 0.4rem 0.6rem;
+    }
+
+    .action-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 0.6rem;
+    }
+
+    .btn-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        background: none;
+        color: #555;
+        font-size: 1rem;
+        border-radius: 50%;
+        width: 34px;
+        height: 34px;
+        transition: all 0.2s ease;
+    }
+
+    .btn-icon:hover {
+        background: #f0f2f6;
+        transform: scale(1.1);
+    }
+
+    .btn-icon.text-success:hover { color: #198754; }
+    .btn-icon.text-danger:hover { color: #dc3545; }
+    .btn-icon.text-info:hover { color: #0dcaf0; }
+
+    .text-muted {
+        text-align: center;
+        padding: 1rem 0;
+        color: #888 !important;
+        font-style: italic;
+    }
+
+    .summary-cards {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .summary-card {
+        flex: 1;
+        min-width: 200px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+        padding: 1rem 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-weight: 500;
+    }
+
+    .summary-card i {
+        font-size: 1.5rem;
+        opacity: 0.7;
+    }
+
+    .summary-card.valid { border-left: 5px solid #198754; }
+    .summary-card.pending { border-left: 5px solid #ffc107; }
+    .summary-card.reject { border-left: 5px solid #dc3545; }
+
+    /* --- Réservation rapide / contact --- */
+    .contact-container {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        padding: 1.8rem;
+        margin-bottom: 3rem;
+    }
+    .contact-container h2 {
+        border-left: 5px solid #0d6efd;
+        padding-left: 10px;
+    }
+    .btn-contact {
+        width: 100%;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+    .form-control, .btn-submit {
+        margin-bottom: 1rem;
+    }
+</style>
+
+<div class="dashboard-container">
+
+    <!-- Résumé en haut -->
+    <div class="summary-cards">
+        <div class="summary-card valid">
+            <span>Réservations validées</span>
+            <strong>{{ res_totals.valide }}</strong>
+            <i class="bi bi-check-circle text-success"></i>
+        </div>
+        <div class="summary-card pending">
+            <span>Réservations en attente</span>
+            <strong>{{ res_totals.attente }}</strong>
+            <i class="bi bi-hourglass-split text-warning"></i>
+        </div>
+        <div class="summary-card reject">
+            <span>Réservations rejetées</span>
+            <strong>{{ res_totals.rejete }}</strong>
+            <i class="bi bi-x-circle text-danger"></i>
+        </div>
+    </div>
+
+    <div class="summary-cards">
+        <div class="summary-card valid">
+            <span>Abonnements validés</span>
+            <strong>{{ ab_totals.valide }}</strong>
+            <i class="bi bi-check-circle text-success"></i>
+        </div>
+        <div class="summary-card pending">
+            <span>Abonnements en attente</span>
+            <strong>{{ ab_totals.attente }}</strong>
+            <i class="bi bi-hourglass-split text-warning"></i>
+        </div>
+        <div class="summary-card reject">
+            <span>Abonnements rejetés</span>
+            <strong>{{ ab_totals.rejete }}</strong>
+            <i class="bi bi-x-circle text-danger"></i>
+        </div>
+    </div>
+
+    <!-- Section Réservations -->
+    <div class="card-section">
+        <h2><i class="bi bi-card-checklist"></i> Réservations des Clients</h2>
+        {% if reservations %}
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Reservation</th>
+                        <th>Date Course</th>
+                        <th>Client</th>
+                        <th>Destination</th>
+                        <th>Depart</th>
+                        <th>Course</th>
+                        <th>Statut</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for res in reservations %}
+                    <tr>
+                        <td>{{ res.date_reservation|date:"d/m/Y H:i" }}</td>
+                        <td>{{ res.date_course}}</td>
+                        <td>{{ res.client.user.username }}</td>
+                        <td>{{ res.lieu_arrivee }}</td>
+                        <td>{{ res.lieu_depart }}</td>
+                        <td>{{ res.heure_course }}</td>
+                        <td>
+                            {% if res.statut == 'valide' %}
+                                <span class="badge bg-success"><i class="bi bi-check-circle"></i> Validée</span>
+                            {% elif res.statut == 'rejete' %}
+                                <span class="badge bg-danger"><i class="bi bi-x-circle"></i> Rejetée</span>
+                            {% elif res.statut == 'lu' %}
+                                <span class="badge bg-info text-dark"><i class="bi bi-eye"></i> Lue</span>
+                            {% else %}
+                                <span class="badge bg-secondary"><i class="bi bi-hourglass-split"></i> En attente</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                <a href="{% url 'reservation_valider' res.id %}" class="btn-icon text-success" title="Valider">
+                                    <i class="bi bi-check-circle"></i>
+                                </a>
+                                <a href="{% url 'reservation_rejeter' res.id %}" class="btn-icon text-danger" title="Rejeter">
+                                    <i class="bi bi-x-circle"></i>
+                                </a>
+                                <a href="{% url 'reservation_lu' res.id %}" class="btn-icon text-info" title="Marquer comme lu">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+            <p class="text-muted">Aucune réservation trouvée.</p>
+        {% endif %}
+    </div>
+
+    <!-- Section Abonnements -->
+    <div class="card-section">
+        <h2><i class="bi bi-calendar2-check"></i> Abonnements des Clients</h2>
+        {% if abonnements %}
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Demande</th>
+                        <th>Client</th>
+                        <th>Jours</th>
+                        <th>Passage</th>
+                        <th>lieu</th>
+                        <th>Destination</th>
+                        <th>Statut</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ab in abonnements %}
+                    <tr>
+                        <td>{{ ab.date_demande|date:"d/m/Y H:i"  }}</td>
+                        <td>{{ ab.client.user.username }}</td>
+                        <td>
+                            {% for jour in ab.jours.all %}
+                                <span class="badge bg-light text-dark border">{{ jour.nom }}</span>
+                            {% empty %}
+                                Aucun
+                            {% endfor %}
+                        </td>
+                        <td>{{ ab.heure_passage }}</td>
+                        <td>{{ ab.lieu_depart }}</td>
+                        <td>{{ ab.lieu_arrivee }}</td>
+                        <td>
+                            {% if ab.statut == 'valide' %}
+                                <span class="badge bg-success"><i class="bi bi-check-circle"></i> Validé</span>
+                            {% elif ab.statut == 'rejete' %}
+                                <span class="badge bg-danger"><i class="bi bi-x-circle"></i> Rejeté</span>
+                            {% elif ab.statut == 'lu' %}
+                                <span class="badge bg-info text-dark"><i class="bi bi-eye"></i> Lu</span>
+                            {% else %}
+                                <span class="badge bg-secondary"><i class="bi bi-hourglass-split"></i> En attente</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                <a href="{% url 'abonnement_valider' ab.id %}" class="btn-icon text-success" title="Valider">
+                                    <i class="bi bi-check-circle"></i>
+                                </a>
+                                <a href="{% url 'abonnement_rejeter' ab.id %}" class="btn-icon text-danger" title="Rejeter">
+                                    <i class="bi bi-x-circle"></i>
+                                </a>
+                                <a href="{% url 'abonnement_lu' ab.id %}" class="btn-icon text-info" title="Marquer comme lu">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+            <p class="text-muted">Aucun abonnement trouvé.</p>
+        {% endif %}
+    </div>
+
+    
+    <div style="text-align:center;">
+        <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary" style="text-decoration: none; background-color:#0d6efd; color: white;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Retourner au tableau de bord</a>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}
