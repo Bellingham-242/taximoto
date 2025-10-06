@@ -168,7 +168,7 @@ class ReservationRapideForm(forms.ModelForm):
         fields = ['client', 'sujet','whatsapp', 'message']
         widgets = {
             'client': forms.Select(attrs={'class': 'form-control'}),
-            'whatsapp': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Numéro WhatsApp'}),
+            'whatsapp': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Numéro WhatsApp:+242XXXXXXXXX'}),
             'sujet': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Sujet'}),
             'message': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Votre message', 'rows': 4}),
         }
