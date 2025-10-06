@@ -7,23 +7,24 @@ from .models import User, Moto, Conducteur, Recette, Absence, Panne, Question, C
 # Utilisateur avec rôle
 # -----------------------
 
-# @admin.register(User)
-# class UserAdmin(BaseUserAdmin):
-#     list_display = ('username', 'email', 'first_name', 'last_name', 'role', 'is_staff', 'is_active')
-#     list_filter = ('role', 'is_staff', 'is_superuser', 'is_active')
-#     search_fields = ('username', 'role', 'email', 'first_name', 'last_name')
-#     ordering = ('username',)
+@admin.register(User)
+class UserAdmin(BaseUserAdmin):
+    list_display = ('username', 'email', 'first_name', 'last_name', 'role', 'is_staff', 'is_active')
+    list_filter = ('role', 'is_staff', 'is_superuser', 'is_active')
+    search_fields = ('username', 'role', 'email', 'first_name', 'last_name')
+    ordering = ('username',)
 
-#     # Permet de modifier le rôle depuis la liste
-#     list_editable = ('role',)
+    # Permet de modifier le rôle depuis la liste
+    list_editable = ('role',)
 
-#     # Assure que le champ 'role' apparaisse dans le formulaire de modification
-#     fieldsets = (
-#         (None, {'fields': ('username', 'password')}),
-#         ('Informations personnelles', {'fields': ('first_name', 'last_name', 'email')}),
-#         ('Permissions', {'fields': ('role', 'is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
-#         ('Dates importantes', {'fields': ('last_login', 'date_joined')}),
-#     )
+    # Assure que le champ 'role' apparaisse dans le formulaire de modification
+    fieldsets = (
+        (None, {'fields': ('username', 'password')}),
+        ('Informations personnelles', {'fields': ('first_name', 'last_name', 'email')}),
+        ('Permissions', {'fields': ('role', 'is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
+        ('Dates importantes', {'fields': ('last_login', 'date_joined')}),
+    )
+
 
 # -----------------------
 # Moto
