@@ -1,0 +1,21 @@
+{
+  "name": "Taxi Moto Pour Tous",
+  "short_name": "TaxiMoto",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0d6efd",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/static/assets/img/image_1.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/assets/img/image_1.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
