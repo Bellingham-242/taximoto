@@ -46,18 +46,6 @@
 
   <!-- Main CSS File -->
   <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
-
-  <link rel="manifest" href="{% static 'manifest.json' %}">
-  <meta name="theme-color" content="#0d6efd">
-
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register("{% static 'service-worker.js' %}")
-        .then(() => console.log("✅ Service Worker enregistré"))
-        .catch((err) => console.error("❌ Erreur SW:", err));
-    }
-  </script>
-
 </head>
 
 <style>
@@ -283,80 +271,41 @@
   <!-- ======= Header ======= -->
   <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color:#0d6efd;">
-      <div class="container">
-        <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#">
-          <img src="{% static 'assets/img/image_1.png' %}" alt="Logo Taxi Moto" class="site-logo me-2" style="width:40px; height:40px; border-radius:8px;">
-          Taxi Moto Pour Tous
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#">
+      <img src="{% static 'assets/img/image_1.png' %}" alt="Logo Taxi Moto" class="site-logo me-2">
+      Taxi Moto Pour Tous
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
 
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto align-items-center">
-
-            <!-- Dropdown Clients -->
-            <li class="nav-item dropdown">
-              <a class="nav-link active dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Clients
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{% url 'reservation_rapide' %}">Réservation Rapide</a></li>
-                <li><a class="dropdown-item" href="{% url 'register_client' %}">Créer Compte</a></li>
-                <li><a class="dropdown-item" href="{% url 'client_login' %}">Connexion</a></li>
-              </ul>
-            </li>
-
-            <!-- Liens classiques -->
-            <li class="nav-item"><a class="nav-link" href="#hero">Accueil</a></li>
-            <li class="nav-item"><a class="nav-link" href="#about">À propos</a></li>
-            <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-            <li class="nav-item"><a class="nav-link" href="#team">La Team</a></li>
-            <li class="nav-item"><a class="nav-link" href="#contact">Questions</a></li>
-
-            <!-- Bouton Télécharger -->
-            <li class="nav-item ms-lg-3">
-              <button id="installBtn" class="btn btn-warning fw-semibold text-dark px-3 py-2" style="border-radius:10px; display:none;">
-                📲 Télécharger
-              </button>
-            </li>
-
+        <!-- Dropdown correctement intégré -->
+        <li class="nav-item dropdown">
+          <a class="nav-link active dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Clients
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'reservation_rapide' %}">Réservation Rapide</a></li>
+            <li><a class="dropdown-item" href="{% url 'register_client' %}">Créer Compte</a></li>
+            <li><a class="dropdown-item" href="{% url 'client_login' %}">Connexion</a></li>
           </ul>
-        </div>
-      </div>
-    </nav>
+        </li>
 
-    <!-- Script pour gérer l’installation PWA -->
-    <script>
-    let deferredPrompt;
-    const installBtn = document.getElementById('installBtn');
+        <!-- Liens de navigation normaux -->
+        <li class="nav-item"><a class="nav-link" href="#hero">Accueil</a></li>
+        <li class="nav-item"><a class="nav-link" href="#about">À propos</a></li>
+        <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+        <li class="nav-item"><a class="nav-link" href="#team">La Team</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Questions</a></li>
 
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      installBtn.style.display = 'inline-block'; // Affiche le bouton
-    });
-
-    installBtn.addEventListener('click', async () => {
-      installBtn.style.display = 'none';
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        if (outcome === 'accepted') {
-          console.log('✅ Application installée avec succès !');
-        } else {
-          console.log('❌ Installation annulée.');
-        }
-        deferredPrompt = null;
-      }
-    });
-
-    window.addEventListener('appinstalled', () => {
-      console.log('L’application est déjà installée.');
-    });
-    </script>
-
+      </ul>
+    </div>
+  </div>
+</nav>
 
 
     </div>
