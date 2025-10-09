@@ -104,19 +104,24 @@
         {% for r in reservations %}
             <div class="reservation-card">
                 <div class="reservation-header">
-                    <h4>{% if r.client %}{{ r.client.username }}{% else %}Anonyme{% endif %}</h4>
+                    <h4>{{ r.nom|default:"—" }}</h4>
                     <span class="reservation-badge {% if r.statut == 'en attente' %}status-en-attente{% else %}status-lu{% endif %}">
                         {% if r.statut == 'en attente' %}En attente{% else %}Lu{% endif %}
                     </span>
                 </div>
+
                 <div class="reservation-body">
-                    <p><strong>WhatsApp:</strong> {{ r.whatsapp|default:"—" }}</p>
-                    <p><strong>Sujet:</strong> {{ r.sujet }}</p>
-                    <p><strong>Message:</strong> {{ r.message }}</p>
-                    <p><strong>Date:</strong> {{ r.date_creation|date:"d/m/Y H:i" }}</p>
+                    <p><strong>Lieu :</strong> {{ r.lieu|default:"—" }}</p>
+                    <p><strong>Destination :</strong> {{ r.destination|default:"—" }}</p>
+                    <p><strong>Heure :</strong> {% if r.heure %}{{ r.heure|time:"H:i" }}{% else %}—{% endif %}</p>
+                    <p><strong>WhatsApp :</strong> {{ r.whatsapp|default:"—" }}</p>
+                    <p><strong>Sujet :</strong> {{ r.sujet|default:"(Aucun sujet)" }}</p>
+                    <p><strong>Message :</strong> {{ r.message|default:"(Aucun message)" }}</p>
+                    <p><strong>Date :</strong> {{ r.date_creation|date:"d/m/Y H:i" }}</p>
                 </div>
+
                 <div class="reservation-actions">
-                    {% if r.client.email %}
+                    {% if r.client and r.client.email %}
                         <a href="mailto:{{ r.client.email }}" class="btn btn-primary">
                             <i class="bi bi-envelope"></i> Mail
                         </a>
@@ -126,14 +131,12 @@
                             <i class="bi bi-whatsapp"></i> WhatsApp
                         </a>
                     {% endif %}
-
-                    <a href="{% url 'supprimer_reservation' r.id %}" 
-                    class="btn btn-danger" 
-                    onclick="return confirm('Voulez-vous vraiment supprimer cette réservation ?');">
+                    <a href="{% url 'supprimer_reservation' r.id %}"
+                       class="btn btn-danger"
+                       onclick="return confirm('Voulez-vous vraiment supprimer cette réservation ?');">
                         <i class="bi bi-trash"></i> Supprimer
                     </a>
-
-                    <a href="{% url 'reservations_admin' %}" target="_blank" class="btn btn-success">
+                    <a href="{% url 'reservations_admin' %}" class="btn btn-secondary">
                         <i class="bi bi-arrow-return-left"></i> Retour
                     </a>
                 </div>

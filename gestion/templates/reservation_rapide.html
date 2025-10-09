@@ -68,25 +68,46 @@
     <!-- 🔹 Formulaire de réservation rapide -->
     <form method="POST">
         {% csrf_token %}
+
         <div class="mb-3">
             {{ form.nom.label_tag }}
             {{ form.nom }}
         </div>
+
+        <div class="mb-3">
+            {{ form.lieu.label_tag }}
+            {{ form.lieu }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.destination.label_tag }}
+            {{ form.destination }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.heure.label_tag }}
+            {{ form.heure }}
+        </div>
+
         <div class="mb-3">
             {{ form.whatsapp.label_tag }}
             {{ form.whatsapp }}
         </div>
+
         <div class="mb-3">
             {{ form.sujet.label_tag }}
             {{ form.sujet }}
         </div>
+
         <div class="mb-3">
             {{ form.message.label_tag }}
             {{ form.message }}
         </div>
+
         <button type="submit" class="btn btn-primary w-100 btn-submit">
             <i class="bi bi-send-fill"></i> Envoyer la Réservation
         </button>
+
         <button type="button" class="btn btn-warning w-100 btn-back" onclick="window.history.back();">
             <i class="bi bi-arrow-left"></i> Retour
         </button>

@@ -228,6 +228,10 @@ def create_jours_semaine(sender, **kwargs):
         
 class ReservationRapide(models.Model):
     client = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    nom = models.CharField(max_length=150, blank=True, null=True)
+    lieu = models.CharField(max_length=200, blank=True, null=True)
+    destination = models.CharField(max_length=200, blank=True, null=True)
+    heure = models.TimeField(blank=True, null=True)
     sujet = models.CharField(max_length=200)
     message = models.TextField()
     whatsapp = models.CharField(max_length=20, blank=True, null=True)
@@ -235,4 +239,4 @@ class ReservationRapide(models.Model):
     date_creation = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.client.username if self.client else 'Anonyme'} - {self.sujet}"
+        return f"{self.nom or (self.client.username if self.client else 'Anonyme')} - {self.sujet}"

@@ -165,10 +165,22 @@ class AbonnementForm(forms.ModelForm):
 class ReservationRapideForm(forms.ModelForm):
     class Meta:
         model = ReservationRapide
-        fields = ['client', 'sujet','whatsapp', 'message']
+        fields = ['client', 'nom', 'lieu', 'destination', 'heure', 'sujet', 'whatsapp', 'message']
         widgets = {
             'client': forms.Select(attrs={'class': 'form-control'}),
-            'whatsapp': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Numéro WhatsApp:+242XXXXXXXXX'}),
-            'sujet': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Sujet'}),
-            'message': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Je suis monsieur x nom, je veux un taxi moto à x heure, je vais l\'attendre à x endroit et je souhaite aller à x destination', 'rows': 4}),
+            'nom': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Votre nom'}),
+            'lieu': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Lieu de départ'}),
+            'destination': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Destination'}),
+            'heure': forms.TimeInput(attrs={
+                'class': 'form-control',
+                'type': 'time',
+                'placeholder': 'Heure prévue'
+            }),
+            'sujet': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Sujet de la réservation'}),
+            'whatsapp': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Numéro WhatsApp : +242XXXXXXXXX'}),
+            'message': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Détails supplémentaires sur votre réservation (ex: Je suis M. X, je veux un taxi moto à X heure, de X lieu à X destination)',
+                'rows': 4
+            }),
         }

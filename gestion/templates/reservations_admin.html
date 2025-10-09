@@ -5,7 +5,7 @@
 {% block content %}
 <style>
     .reservation-list {
-        max-width: 1000px;
+        max-width: 1100px;
         margin: 40px auto;
         background: #fff;
         border-radius: 12px;
@@ -40,6 +40,7 @@
         background-color: #0d6efd;
         color: white;
         font-weight: 600;
+        white-space: nowrap;
     }
 
     tr:hover {
@@ -67,7 +68,7 @@
 </style>
 
 <div class="reservation-list">
-    <h2><i class="bi bi-journal-text"></i>Liste Réservations Rapides Enregistrées</h2>
+    <h2><i class="bi bi-journal-text"></i> Liste des Réservations Rapides</h2>
 
     {% if reservations %}
     <div class="table-responsive">
@@ -75,7 +76,10 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Client</th>
+                    <th>Nom</th>
+                    <th>Lieu</th>
+                    <th>Destination</th>
+                    <th>Heure</th>
                     <th>WhatsApp</th>
                     <th>Sujet</th>
                     <th>Message</th>
@@ -88,10 +92,14 @@
                 {% for r in reservations %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
-                    <td> {% if r.client %}
-                            {{ r.client.username }}
+                    <td>{{ r.nom|default:"—" }}</td>
+                    <td>{{ r.lieu|default:"—" }}</td>
+                    <td>{{ r.destination|default:"—" }}</td>
+                    <td>
+                        {% if r.heure %}
+                            {{ r.heure|time:"H:i" }}
                         {% else %}
-                            <span class="text-muted">Anonyme</span>
+                            —
                         {% endif %}
                     </td>
                     <td>{{ r.whatsapp|default:"—" }}</td>
@@ -106,14 +114,18 @@
                     </td>
                     <td>{{ r.date_creation|date:"d/m/Y H:i" }}</td>
                     <td>
-                        <a href="mailto:{{ r.client.email }}" class="btn btn-sm btn-primary btn-action">
-                            <i class="bi bi-envelope"></i>
-                        </a>
-                        <a href="https://wa.me/{{ r.whatsapp }}" target="_blank" class="btn btn-sm btn-success btn-action">
-                            <i class="bi bi-whatsapp"></i>
-                        </a>
-                        <a href="{% url 'liste_reservations_rapides' %}"  class="btn btn-sm btn-success btn-action">
-                            <i class="bi bi-journal-text"></i>
+                        {% if r.client and r.client.email %}
+                            <a href="mailto:{{ r.client.email }}" class="btn btn-sm btn-primary btn-action" title="Envoyer un mail">
+                                <i class="bi bi-envelope"></i>
+                            </a>
+                        {% endif %}
+                        {% if r.whatsapp %}
+                            <a href="https://wa.me/{{ r.whatsapp }}" target="_blank" class="btn btn-sm btn-success btn-action" title="Contacter sur WhatsApp">
+                                <i class="bi bi-whatsapp"></i>
+                            </a>
+                        {% endif %}
+                        <a href="{% url 'liste_reservations_rapides' %}" class="btn btn-sm btn-secondary btn-action" title="Actualiser">
+                            <i class="bi bi-arrow-clockwise"></i>
                         </a>
                     </td>
                 </tr>
@@ -121,8 +133,10 @@
             </tbody>
         </table>
 
-        <div style="text-align:center;">
-            <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary" style="text-decoration: none; background-color:#0d6efd; color: white;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Retourner au tableau de bord</a>
+        <div style="text-align:center; margin-top: 1rem;">
+            <a href="{% url 'admin_dashboard' %}" class="btn btn-primary">
+                <i class="bi bi-arrow-left"></i> Retour au tableau de bord
+            </a>
         </div>
     </div>
     {% else %}
