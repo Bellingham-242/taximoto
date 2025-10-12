@@ -30,8 +30,8 @@ DEBUG = True
 # Paramètres basiques
 SECRET_KEY = '0ss&6dmktwxu^z-*4_njh@_i4u(kd3g0k3sf#r31*r(+u6(qg0'
 # ALLOWED_HOSTS = ['taximotopourtous.com', 'www.taximotopourtous.com']
-#ALLOWED_HOSTS = ['taximotopourtous.pythonanywhere.com']
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['taximotopourtous.pythonanywhere.com']
+#ALLOWED_HOSTS = []
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
