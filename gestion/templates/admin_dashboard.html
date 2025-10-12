@@ -79,21 +79,33 @@ td, th {
     text-align: center;
     vertical-align: middle;
 }
+
+/* Boutons d'actions bleus, centrés et sans soulignement */
+td[data-label="Actions"] {
+    text-align: center;
+}
 td[data-label="Actions"] a {
-    display: block;
+    display: inline-block;
+    text-decoration: none;
     font-size: 0.85rem;
-    padding: 0.35rem 0.7rem;
+    padding: 0.4rem 0.9rem;
     border-radius: 20px;
     font-weight: 600;
-    margin-bottom: 0.2rem;
+    margin: 0.2rem;
     transition: transform 0.2s, box-shadow 0.2s;
+    background-color: #0d6efd;
     color: white !important;
 }
-td[data-label="Actions"] a:nth-child(1) { background-color: #28a745; }
-td[data-label="Actions"] a:nth-child(2) { background-color: #dc3545; }
-td[data-label="Actions"] a:nth-child(3) { background-color: #6c757d; }
-td[data-label="Actions"] a:hover { transform: scale(1.05); box-shadow: 0 0 8px rgba(0,0,0,0.2); }
-tbody tr td[colspan] { color: #666; font-style: italic; padding: 1rem; }
+td[data-label="Actions"] a:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 8px rgba(0,0,0,0.2);
+}
+
+tbody tr td[colspan] {
+    color: #666;
+    font-style: italic;
+    padding: 1rem;
+}
 
 /* Titre des sections */
 .table-container h3 { margin-bottom: 0.8rem; }
