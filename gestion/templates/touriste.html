@@ -1,7 +1,249 @@
 {% extends "element.html" %}
 {% block content %}
+<style>
+/* --- Reset et base --- */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    scroll-behavior: smooth;
+    line-height: 1.6;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+section { padding: 6rem 0; }
+
+/* --- Navbar --- */
+.navbar { background: #0d1b2a; }
+.navbar .nav-link { color: #f0f0f0 !important; transition: color 0.3s; }
+.navbar .nav-link:hover, .navbar .nav-link.active { color: #0d6efd !important; }
+.navbar-brand {
+    font-size: clamp(1rem, 2.5vw, 2.5rem);
+    color: #0d6efd !important;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.navbar-brand .site-logo { width: clamp(25px, 3vw, 50px); height: auto; }
+.navbar-toggler { border-color: #0d6efd; }
+.navbar-toggler-icon { filter: brightness(2); }
+.navbar-collapse { background-color: #0d1b2a; padding: 1rem; }
+
+/* --- Hero Section --- */
+.hero {
+    position: relative; display: flex; justify-content: center; align-items: center;
+    text-align: center; background: #000; padding: 6rem 1rem;
+}
+.hero::after {
+    content: ""; position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%; background: rgba(0,0,0,0.5);
+}
+.hero .container { position: relative; z-index: 2; }
+.hero h1 { font-size: clamp(1.5rem, 6vw, 3rem); line-height: 1.3; margin-bottom: 1rem; }
+.hero p { font-size: 1.3rem; margin-bottom: 1.5rem; }
+.hero-tag { display: flex; flex-direction: column; gap: 1rem; align-items: center; }
+
+/* Hero et boutons */
+.hero-cta a.btn, .contact button, .btn-discover {
+    border-radius: 10px; background-color: #0d6efd !important;
+    border: none; color: #fff !important; font-weight: bold; transition: 0.3s;
+}
+.hero-cta a.btn,
+.hero-cta a.btn:hover,
+.hero-cta a.btn:focus,
+.hero-cta a.btn:active,
+.contact button,
+.contact button:hover,
+.contact button:focus,
+.contact button:active,
+.btn-discover,
+.btn-discover:hover,
+.btn-discover:focus,
+.btn-discover:active {
+    background-color: #0d6efd !important;  /* bleu principal */
+    border-color: #0d6efd !important;
+    color: #fff !important;
+}
+
+
+/* Icônes hero et features */
+.hero-tag i, .hero-features i, .feature-box .icon-container i {
+    color: #0d6efd; font-size: 2rem; margin-bottom: 0.5rem;
+}
+
+.services-subtitle {
+    color: #0d6efd !important; /* bleu principal */
+    font-weight: 600;
+}
+
+.services-subtitle:hover {
+    color: #0b5ed7 !important; /* bleu hover */
+}
+
+.hero-features li { margin-bottom: 0.5rem; }
+
+/* --- About Section --- */
+.feature-box, .about-content-box { text-align: center; padding: 2rem 1rem; border-radius: 12px; transition: transform 0.3s, box-shadow 0.3s; }
+.feature-box:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+.feature-box h4, .about-content-box h3, .progress-item .progress-title, .progress-percent { color: #0d6efd; font-weight: 600; }
+.feature-box p, .about-content-box p { color: #333; }
+.progress .progress-bar { background-color: #0d6efd !important; }
+
+/* Experience badge */
+.experience-badge { background-color: #0d6efd; color: #fff; padding: 0.5rem 1rem; border-radius: 12px; text-align: center; }
+.experience-badge .years { font-size: 1.5rem; font-weight: 700; }
+.experience-badge .text { font-size: 0.9rem; }
+
+/* Images grid optionnel */
+.about-image-grid img { border: 3px solid #0d6efd; border-radius: 12px; }
+
+/* --- Footer --- */
+footer { background: #0d1b2a; color: #fff; }
+footer .credits a strong { color: #0d6efd !important; }
+footer .credits a strong:hover { color: #0b5ed7 !important; }
+
+/* Textes / accents */
+.highlight, .section-heading { color: #0d6efd !important; }
+
+/* --- Responsive --- */
+@media(max-width:768px){
+    .hero h1 { font-size: 2rem; }
+    .hero p { font-size: 1rem; }
+    section { padding: 3rem 1rem !important; }
+    .hero-cta a.btn { width: 100%; display: block; margin-bottom: 10px; }
+}
+
+/* Texte des pourcentages dans les barres de progression */
+.progress-percent {
+    color: #0d6efd !important; /* bleu principal */
+    font-weight: bold;
+}
+
+.experience-badge {
+    background-color: #0d6efd !important;  /* bleu forcé */
+    color: #fff !important;                /* texte blanc forcé */
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    text-align: center;
+    display: inline-block;
+}
+
+.experience-badge .years {
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: block;
+}
+
+.experience-badge .text {
+    font-size: 0.9rem;
+    display: block;
+}
+
+/* --- Stats Section --- */
+.stats-section, .stats, .stats-card, .stats-number, .stats-icon i {
+    color: #0d6efd; /* bleu principal */
+}
+.stats-card {
+    background: #f8f9fa; 
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.stats-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+.stats-icon i {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+.stats-number {
+    font-size: 2rem;
+    font-weight: bold;
+}
+.stats-number .plus {
+    color: #0d6efd;
+}
+.stats p {
+    color: #333;
+}
+
+/* --- Services Section --- */
+.service-card {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+.service-icon i {
+    font-size: 2.5rem;
+    color: #0d6efd; /* bleu principal */
+    margin-bottom: 0.5rem;
+}
+.service-info h3 a {
+    color: #0d6efd;
+    font-weight: 600;
+    text-decoration: none;
+}
+.service-info h3 a:hover {
+    color: #0b5ed7; /* bleu hover */
+}
+
+/* --- Harmonisation boutons --- */
+.hero-cta a.btn,
+.btn-discover,
+.contact button {
+    background-color: #0d6efd !important;
+    border: none;
+    color: #fff !important;
+    font-weight: bold;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+.hero-cta a.btn:hover,
+.btn-discover:hover,
+.contact button:hover {
+    background-color: #0b5ed7 !important;
+    color: #fff !important;
+}
+
+/* --- Icônes et accents --- */
+.hero-features i,
+.feature-box .icon-container i,
+.stats-icon i,
+.service-icon i {
+    color: #0d6efd;
+}
+
+/* --- Titres et headings --- */
+h2.section-heading,
+h3,
+h4 {
+    color: #0d6efd;
+}
+.section-title h2,
+.section-title p {
+    color: #0d6efd;
+}
+
+/* --- Responsive --- */
+@media(max-width:768px){
+    .stats-number { font-size: 1.5rem; }
+    .service-card { padding: 1rem; }
+    .hero-cta a.btn { width: 100%; display: block; margin-bottom: 10px; }
+}
+</style>
+
+
 {% load static %}
-   <!-- About Section -->
+<!-- About Section -->
 <section id="about" class="about section">
 
   <div class="container" data-aos="fade-up" data-aos-delay="100">
