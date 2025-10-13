@@ -10,12 +10,12 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://taximotopourtous.pythonanywhere.com/register/client/</loc>
+    <loc>https://taximotopourtous.com/register/client/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://taximotopourtous.pythonanywhere.com/reservation-rapide/</loc>
+    <loc>https://taximotopourtous.com/reservation-rapide/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
